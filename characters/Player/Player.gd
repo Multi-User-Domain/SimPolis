@@ -12,6 +12,7 @@ signal player_selected
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	$NameLabel.text = character_name
 
 func _physics_process(delta):
 	if target_coords:
