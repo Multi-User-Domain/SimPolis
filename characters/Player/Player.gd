@@ -26,3 +26,10 @@ func _physics_process(delta):
 func _on_KinematicBody2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		emit_signal("player_selected")
+		select()
+
+func select():
+	$NameLabel.set_visible_characters(-1)
+
+func deselect():
+	$NameLabel.set_visible_characters(0)
