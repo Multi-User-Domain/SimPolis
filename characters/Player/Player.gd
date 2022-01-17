@@ -1,11 +1,12 @@
 extends KinematicBody2D
 
+class_name Character
 
 onready var animation_player = $AnimationPlayer
-export var speed = 400  # How fast the player will move (pixels/sec).
-export var character_name = ""
-var target_coords
-var velocity = Vector2.ZERO
+export var speed: = 400  # How fast the player will move (pixels/sec).
+export var character_name: = ""
+var target_coords # can be null or Vector2
+var velocity: = Vector2.ZERO
 var screen_size  # Size of the game window.
 
 signal player_selected

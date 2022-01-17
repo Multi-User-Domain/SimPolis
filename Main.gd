@@ -1,6 +1,6 @@
 extends Node2D
 
-var selected_character
+var selected_character: Character
 
 func _ready():
 	$Themistocles.position = Vector2(63, 84)
