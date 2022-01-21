@@ -3,6 +3,7 @@ extends TileMap
 
 # an array with references to objects inhabiting a tile
 var objects = []
+var half_cell_size = cell_size * 0.5
 
 
 func _get_node_cell_type(node):
@@ -26,11 +27,17 @@ func request_move_direction(actor, direction: Vector2):
 	var cell_target_type = get_cellv(cell_target)
 	match cell_target_type:
 		-1:
-			return move_to_tile(actor, cell_start, cell_target)
+			return move_to_cell(actor, cell_start, cell_target)
 		1:
 			return false
 
-func move_to_tile(node, cell_start: Vector2, cell_target: Vector2):
+func move_to_cell(node, cell_start: Vector2, cell_target: Vector2):
 	set_cellv(cell_target, _get_node_cell_type(node))
 	set_cellv(cell_start, -1)
-	return map_to_world(cell_target) + (cell_size * 0.5)
+	return map_to_world(cell_target) + half_cell_size
+
+func can_move_to_cell(node, target_cell: Vector2):
+	return get_cellv(world_to_map(node.position)) == -1
+
+func world_to_cell_centre(cell_target: Vector2):
+	return map_to_world(world_to_map(cell_target)) + half_cell_size
