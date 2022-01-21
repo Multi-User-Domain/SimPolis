@@ -24,8 +24,9 @@ func _physics_process(delta):
 	var mouse_pos = $Grid.world_to_map(get_global_mouse_position())
 	mouse_pos = $Grid.map_to_world(mouse_pos)
 	$TileHighlight.set_position(mouse_pos)
+	$TileHighlight.color = $TileHighlight.DEFAULT_COLOR if $Grid.can_move_to_cell(mouse_pos) else $TileHighlight.BLOCK_COLOR
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if selected_character != null and event.button_index == BUTTON_RIGHT:
-			selected_character.target_coords = $Grid.world_to_cell_centre(event.position)
+			selected_character.target_coords = $Grid.move_to_cell(selected_character, event.position)
