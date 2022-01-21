@@ -50,6 +50,7 @@ script = ExtResource( 5 )
 [node name="TileHighlight" type="ColorRect" parent="."]
 margin_right = 16.0
 margin_bottom = 16.0
+mouse_filter = 2
 color = Color( 1, 0.960784, 0, 0.317647 )
 __meta__ = {
 "_edit_use_anchors_": false
