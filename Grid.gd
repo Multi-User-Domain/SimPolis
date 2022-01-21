@@ -36,8 +36,15 @@ func move_to_cell(node, cell_start: Vector2, cell_target: Vector2):
 	set_cellv(cell_start, -1)
 	return map_to_world(cell_target) + half_cell_size
 
+func place_in_cell(node, cell: Vector2):
+	set_cellv(cell, _get_node_cell_type(node))
+	node.position = map_to_world(cell)
+
 func can_move_to_cell(node, target_cell: Vector2):
 	return get_cellv(world_to_map(node.position)) == -1
 
-func world_to_cell_centre(cell_target: Vector2):
-	return map_to_world(world_to_map(cell_target)) + half_cell_size
+func world_to_cell_centre(vector_target: Vector2):
+	return map_to_cell_centre(world_to_map(vector_target))
+
+func map_to_cell_centre(cell_target: Vector2):
+	return map_to_world(cell_target) + half_cell_size

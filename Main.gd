@@ -3,8 +3,8 @@ extends Node2D
 var selected_character: Character
 
 func _ready():
-	$Themistocles.position = Vector2(63, 84)
-	$Pericles.position = Vector2(263, 84)
+	$Grid.place_in_cell($Themistocles, Vector2(4,4))
+	$Grid.place_in_cell($Pericles, Vector2(8,4))
 	selected_character = $Themistocles
 	selected_character.select()
 	_connect_character($Themistocles)
@@ -20,8 +20,10 @@ func select_character(character):
 	selected_character = character
 
 func _physics_process(delta):
-	var mousePos = $Grid.world_to_map(get_global_mouse_position())
-	$TileHighlight.set_position($Grid.map_to_world(mousePos))
+	# updating the tile highlight
+	var mouse_pos = $Grid.world_to_map(get_global_mouse_position())
+	mouse_pos = $Grid.map_to_world(mouse_pos)
+	$TileHighlight.set_position(mouse_pos)
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:

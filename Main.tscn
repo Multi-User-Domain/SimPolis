@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -31,6 +31,16 @@
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="GDScript" id=2]
+script/source = "extends ColorRect
+
+export var BLOCK_COLOR: Color
+export var DEFAULT_COLOR: Color
+
+func _ready():
+	color = DEFAULT_COLOR
+"
+
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -52,9 +62,12 @@ margin_right = 16.0
 margin_bottom = 16.0
 mouse_filter = 2
 color = Color( 1, 0.960784, 0, 0.317647 )
+script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+BLOCK_COLOR = Color( 1, 0, 0, 0.592157 )
+DEFAULT_COLOR = Color( 1, 0.960784, 0, 0.317647 )
 
 [node name="Themistocles" parent="." instance=ExtResource( 1 )]
 character_name = "Themistocles"
