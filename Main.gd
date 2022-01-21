@@ -29,4 +29,5 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if selected_character != null and event.button_index == BUTTON_RIGHT:
-			selected_character.target_coords = $Grid.move_to_cell(selected_character, event.position)
+			if $Grid.can_move_to_cell(event.position):
+				selected_character.target_coords = $Grid.move_to_cell(selected_character, event.position)
