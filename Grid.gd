@@ -34,8 +34,11 @@ func place_in_cell(node, cell: Vector2):
 	set_cellv(cell, _get_node_cell_type(node))
 	node.set_position(map_to_cell_centre(cell))
 
+func can_move_to_coords(target_coords: Vector2):
+	return can_move_to_cell(world_to_map(target_coords))
+
 func can_move_to_cell(target_cell: Vector2):
-	return get_cellv(world_to_map(target_cell)) <= 0
+	return get_cellv(target_cell) <= 0
 
 func world_to_cell_centre(vector_target: Vector2):
 	return map_to_cell_centre(world_to_map(vector_target))

@@ -21,13 +21,14 @@ func select_character(character):
 
 func _physics_process(delta):
 	# updating the tile highlight
-	var mouse_pos = $Grid.world_to_map(get_global_mouse_position())
-	mouse_pos = $Grid.map_to_world(mouse_pos)
-	$TileHighlight.set_position(mouse_pos)
-	$TileHighlight.color = $TileHighlight.DEFAULT_COLOR if $Grid.can_move_to_cell(mouse_pos) else $TileHighlight.BLOCK_COLOR
+	var mouse_cell: Vector2 = $Grid.world_to_map(get_global_mouse_position())
+	var mouse_coords: Vector2 = $Grid.map_to_world(mouse_cell)
+	$TileHighlight.set_position(mouse_coords)
+	$TileHighlight.color = $TileHighlight.DEFAULT_COLOR if $Grid.can_move_to_coords(mouse_coords) else $TileHighlight.BLOCK_COLOR
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if selected_character != null and event.button_index == BUTTON_RIGHT:
-			if $Grid.can_move_to_cell(event.position):
+			var target_cell: Vector2 = $Grid.world_to_map(event.position)
+			if $Grid.can_move_to_cell(target_cell):
 				selected_character.target_coords = $Grid.move_to_cell(selected_character, event.position)
