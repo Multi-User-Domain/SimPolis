@@ -35,7 +35,7 @@ func _input(event):
 			# if the cell is empty then move there
 			var target_cell: Vector2 = $Grid.world_to_map(event.position)
 			if $Grid.can_move_to_cell(target_cell):
-				selected_character.target_coords = $Grid.move_to_cell(selected_character, event.position)
+				selected_character.set_target_coords($Grid.move_to_cell(selected_character, event.position))
 			# there is something in the cell
 			else:
 				# can I interact with it?
@@ -46,5 +46,5 @@ func _input(event):
 					target_cell = $Grid.get_adjacent_empty_cell(target_cell)
 					
 					if target_cell != null:
-						selected_character.target_coords = $Grid.move_to_cell(selected_character, $Grid.map_to_world(target_cell))
+						selected_character.set_target_coords($Grid.move_to_cell(selected_character, $Grid.map_to_world(target_cell)))
 						target_node.interact()
