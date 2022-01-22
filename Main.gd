@@ -28,7 +28,10 @@ func _physics_process(delta):
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
+		# we have received an action command (right click)
 		if selected_character != null and event.button_index == BUTTON_RIGHT:
+			
+			# if the cell is empty then move there
 			var target_cell: Vector2 = $Grid.world_to_map(event.position)
 			if $Grid.can_move_to_cell(target_cell):
 				selected_character.target_coords = $Grid.move_to_cell(selected_character, event.position)
