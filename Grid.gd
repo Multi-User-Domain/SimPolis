@@ -74,3 +74,22 @@ func world_to_cell_centre(vector_target: Vector2):
 
 func map_to_cell_centre(cell_target: Vector2):
 	return map_to_world(cell_target) + half_cell_size
+
+# will attempt to find an adjacent cell which is empty for movement
+# will return the cell co-ordinates or null
+func get_adjacent_empty_cell(cell_target: Vector2):
+	var transformations = [0, -1, 1]
+	
+	# investigates each adjacent cell in turn and checks against can_move_to_cell
+	for i in range(3):
+		for j in range(3):
+			# we do not investigate 0,0 - the current cell
+			if j == 0 and j == i:
+				continue
+			
+			var possible_result = cell_target + Vector2(transformations[i], transformations[j])
+			
+			if can_move_to_cell(possible_result):
+				return possible_result
+	
+	return null

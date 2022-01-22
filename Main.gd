@@ -42,4 +42,9 @@ func _input(event):
 				var target_node = $Grid.get_node_in_cell(target_cell)
 				
 				if target_node.has_method("interact"):
-					target_node.interact()
+					# is it accessible?
+					target_cell = $Grid.get_adjacent_empty_cell(target_cell)
+					
+					if target_cell != null:
+						selected_character.target_coords = $Grid.move_to_cell(selected_character, $Grid.map_to_world(target_cell))
+						target_node.interact()
