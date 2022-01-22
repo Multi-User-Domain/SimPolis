@@ -58,6 +58,11 @@ func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 	if set_physical_position:
 		node.set_position(map_to_cell_centre(cell))
 
+func get_node_in_cell(cell: Vector2):
+	assert(cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height, "Cell index out of bounds!")
+	
+	return inhabitants[cell.x][cell.y]
+
 func can_move_to_coords(target_coords: Vector2):
 	return can_move_to_cell(world_to_map(target_coords))
 

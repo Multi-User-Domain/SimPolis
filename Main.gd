@@ -5,6 +5,7 @@ var selected_character: Character
 func _ready():
 	$Grid.place_in_cell($Themistocles, Vector2(4,4))
 	$Grid.place_in_cell($Pericles, Vector2(8,4))
+	$Grid.place_in_cell($Treasure, Vector2(12, 6))
 	selected_character = $Themistocles
 	selected_character.select()
 	_connect_character($Themistocles)
@@ -35,3 +36,10 @@ func _input(event):
 			var target_cell: Vector2 = $Grid.world_to_map(event.position)
 			if $Grid.can_move_to_cell(target_cell):
 				selected_character.target_coords = $Grid.move_to_cell(selected_character, event.position)
+			# there is something in the cell
+			else:
+				# can I interact with it?
+				var target_node = $Grid.get_node_in_cell(target_cell)
+				
+				if target_node.has_method("interact"):
+					target_node.interact()
