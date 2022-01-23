@@ -40,17 +40,19 @@ func _input(event):
 			else:
 				# can I interact with it?
 				var target_node = $Grid.get_node_in_cell(target_cell)
-				
-				# TODO: am I next to it?
-				
-				# no - so I need to move to it first
 				if target_node.has_method("interact"):
-					# is it accessible?
-					target_cell = $Grid.get_adjacent_empty_cell(target_cell)
 					
-					if target_cell != null:
-						selected_character.set_target_coords($Grid.move_to_cell(selected_character, $Grid.map_to_world(target_cell)))
-						selected_character.connect("destination_arrived", self, "complete_interaction", [selected_character, target_node])
+					# if I'm next to the object already, I can interact with it right away
+					if  $Grid.cells_are_adjacent($Grid.world_to_map(selected_character.get_position()), target_cell):
+						complete_interaction(selected_character, target_node)
+					
+					# no - so I need to move to it first
+					else:
+						target_cell = $Grid.get_adjacent_empty_cell(target_cell)
+					
+						if target_cell != null:
+							selected_character.set_target_coords($Grid.move_to_cell(selected_character, $Grid.map_to_world(target_cell)))
+							selected_character.connect("destination_arrived", self, "complete_interaction", [selected_character, target_node])
 
 func complete_interaction(agent_node, target_node):
 	target_node.interact()

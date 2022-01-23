@@ -93,3 +93,7 @@ func get_adjacent_empty_cell(cell_target: Vector2):
 				return possible_result
 	
 	return null
+
+# returns true if two cells are adjacent
+func cells_are_adjacent(cell_a: Vector2, cell_b: Vector2):
+	return abs(cell_a.x - cell_b.x) <= 1 and abs(cell_a.y - cell_b.y) <= 1
