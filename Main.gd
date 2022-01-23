@@ -29,7 +29,7 @@ func _physics_process(delta):
 
 func _handle_interaction(target_node, target_cell):
 	# are there restrictions on use?
-	if target_node.has_method("can_interact") and not target_node.can_interact():
+	if target_node.has_method("can_interact") and not target_node.can_interact(selected_character):
 		return
 	
 	# if I'm next to the object already, I can interact with it right away
@@ -61,5 +61,5 @@ func _input(event):
 					_handle_interaction(target_node, target_cell)
 
 func complete_interaction(agent_node, target_node):
-	target_node.interact()
+	target_node.interact(agent_node)
 	agent_node.disconnect("destination_arrived", self, "complete_interaction")
