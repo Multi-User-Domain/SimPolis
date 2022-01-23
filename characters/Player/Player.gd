@@ -10,6 +10,7 @@ var velocity: = Vector2.ZERO
 var screen_size  # Size of the game window.
 
 signal player_selected
+signal destination_arrived # triggered when movement complete
 
 
 func _ready():
@@ -28,6 +29,7 @@ func _physics_process(delta):
 		else:
 			set_position(_target_coords)
 			_target_coords = null
+			emit_signal("destination_arrived")
 			if velocity.x > 0:
 				animation_player.play("IdleRight")
 			else:
