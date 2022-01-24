@@ -2,6 +2,10 @@
 
 This is a very early development game. I'm intending to use it to learn Godot, so I'm not committed yet to finishing it. Nevertheless I'm including some documentation on design for reference and because it's good practice
 
+# Agents
+
+Agents are game actors, e.g. characters. They are expected to be able to perform tasks, by playing _cards_
+
 # Objects
 
 Godot does not have interfaces or abstract classes. Instead we use duck typing, i.e. we check if a function exists on a given object
