@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/objects/card/birth.png" type="Texture" id=1]
+[ext_resource path="res://assets/objects/card/effects/card_glow_green.png" type="Texture" id=2]
 [ext_resource path="res://objects/cards/CardDisplay.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -8,18 +9,11 @@ extents = Vector2( 65, 89 )
 
 [node name="Card" type="Node2D"]
 
-[node name="BackgroundGlow" type="ColorRect" parent="."]
-modulate = Color( 1, 4, 1, 1 )
-margin_left = -4.0
-margin_top = -4.0
-margin_right = 132.0
-margin_bottom = 180.0
-mouse_filter = 2
-color = Color( 0.392157, 0.85098, 0.278431, 1 )
+[node name="BackgroundGlow" type="Sprite" parent="."]
+position = Vector2( 64, 88 )
+scale = Vector2( 0.304688, 0.309335 )
+texture = ExtResource( 2 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 128.0

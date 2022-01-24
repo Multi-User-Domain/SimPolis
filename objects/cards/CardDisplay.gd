@@ -1,4 +1,4 @@
-extends ColorRect
+extends Sprite
 
 
 func _ready():
