@@ -8,12 +8,15 @@
 extents = Vector2( 65, 89 )
 
 [node name="Card" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
 
 [node name="BackgroundGlow" type="Sprite" parent="."]
+visible = false
 position = Vector2( 64, 88 )
 scale = Vector2( 0.304688, 0.309335 )
 texture = ExtResource( 2 )
-script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 128.0
@@ -64,5 +67,5 @@ texture = ExtResource( 1 )
 position = Vector2( 64, 88 )
 shape = SubResource( 4 )
 
-[connection signal="mouse_entered" from="Area2D" to="BackgroundGlow" method="_on_Card_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="BackgroundGlow" method="_on_Card_mouse_exited"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_Card_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_Card_mouse_exited"]
