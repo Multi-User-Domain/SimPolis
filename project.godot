@@ -24,10 +24,6 @@ config/name="SimPolis"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-LordOfDict="*res://LordOfDict.gd"
-
 [display]
 
 window/size/width=720
