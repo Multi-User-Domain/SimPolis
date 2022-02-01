@@ -2,6 +2,9 @@ extends Node2D
 
 var selected_character: Character
 
+# will be set to the hovered card by child (for detecting if a card has been selected
+var mouse_hovering_over_card: Node2D = null
+
 func _ready():
 	$Grid.place_in_cell($Themistocles, Vector2(4,4))
 	$Grid.place_in_cell($Pericles, Vector2(8,4))
@@ -46,6 +49,11 @@ func _handle_interaction(target_node, target_cell):
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
+		
+		# we have received a select command (left click)
+		if mouse_hovering_over_card != null and event.button_index == BUTTON_LEFT:
+			print('I clicked a card! ' + str(mouse_hovering_over_card))
+		
 		# we have received an action command (right click)
 		if selected_character != null and event.button_index == BUTTON_RIGHT:
 			
