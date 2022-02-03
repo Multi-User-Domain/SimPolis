@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://HUD.gd" type="Script" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=8]
 [ext_resource path="res://objects/cards/Card.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ItemPlacePrompt.tscn" type="PackedScene" id=10]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -83,6 +84,8 @@ character_name = "Pericles"
 
 [node name="Treasure" parent="." instance=ExtResource( 6 )]
 position = Vector2( 295, 88 )
+
+[node name="ItemPlacePrompt" parent="." instance=ExtResource( 10 )]
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )

@@ -1,9 +1,12 @@
 extends Node2D
 
+onready var place_item_prompt = get_node("ItemPlacePrompt")
 var selected_character: Character
 
 # will be set to the hovered card by child (for detecting if a card has been selected
 var mouse_hovering_over_card: Node2D = null
+
+var character_scene = preload("res://characters/Player/Player.tscn")
 
 func _ready():
 	$Grid.place_in_cell($Themistocles, Vector2(4,4))
@@ -52,7 +55,8 @@ func _input(event):
 		
 		# we have received a select command (left click)
 		if mouse_hovering_over_card != null and event.button_index == BUTTON_LEFT:
-			print('I clicked a card! ' + str(mouse_hovering_over_card))
+			var new_fox = character_scene.instance()
+			place_item_prompt.set_new_item(new_fox)
 		
 		# we have received an action command (right click)
 		if selected_character != null and event.button_index == BUTTON_RIGHT:
