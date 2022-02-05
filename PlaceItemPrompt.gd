@@ -1,7 +1,7 @@
 extends Node2D
 
 
-onready var item = get_node("Item")
+var current_prompt_item = null
 
 
 func _ready():
@@ -14,12 +14,20 @@ func clear():
 	self.hide()
 	set_process(false)
 
+func extract_item():
+	var result = current_prompt_item
+	remove_child(current_prompt_item)
+	current_prompt_item = null
+	return result
+
 func set_new_item(indicator: Node):
 	# remove pre-existing item
-	for child in get_children():
-		remove_child(child)
-		child.queue_free()
+	if current_prompt_item != null:
+		remove_child(current_prompt_item)
+		current_prompt_item.queue_free()
+		current_prompt_item = null
 	
+	current_prompt_item = indicator
 	add_child(indicator)
 	
 	self.show()
