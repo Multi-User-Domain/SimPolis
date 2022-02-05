@@ -41,7 +41,12 @@ func empty_cell(cell: Vector2):
 	inhabitants[cell.x][cell.y] = null
 
 func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
+	#
+	#	return false if unable to place in the cell, true if successful
+	#
 	assert(cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height, "Cell index out of bounds!")
+	if(!can_move_to_cell(cell)):
+		return false
 	
 	# store references to the node's position
 	inhabitants[cell.x][cell.y] = node
@@ -49,6 +54,8 @@ func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 	# set the node's physical position on screen
 	if set_physical_position:
 		node.set_position(map_to_cell_centre(cell))
+	
+	return true # indicate success
 
 func get_node_in_cell(cell: Vector2):
 	assert(cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height, "Cell index out of bounds!")
