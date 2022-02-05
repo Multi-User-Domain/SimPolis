@@ -24,6 +24,10 @@ config/name="SimPolis"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globals="*res://autoload/Globals.gd"
+
 [display]
 
 window/size/width=720
