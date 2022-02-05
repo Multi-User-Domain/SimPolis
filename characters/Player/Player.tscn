@@ -164,7 +164,6 @@ tracks/0/keys = {
 }
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
-position = Vector2( 71, 38 )
 input_pickable = true
 script = ExtResource( 2 )
 
