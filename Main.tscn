@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/world/tile/grass.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://HUD.gd" type="Script" id=8]
 [ext_resource path="res://icon.png" type="Texture" id=9]
 [ext_resource path="res://objects/cards/Card.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/objects/card/birth.png" type="Texture" id=11]
+[ext_resource path="res://assets/objects/buildings/house_1.png" type="Texture" id=12]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -105,8 +107,16 @@ __meta__ = {
 
 [node name="DeckTray" type="Node2D" parent="HUD"]
 
-[node name="Node2D" parent="HUD/DeckTray" instance=ExtResource( 10 )]
+[node name="FoxCard" parent="HUD/DeckTray" instance=ExtResource( 10 )]
 position = Vector2( 99, 373 )
 scale = Vector2( 0.5, 0.5 )
+description = "Spawn a new Fox"
+texture = ExtResource( 11 )
+
+[node name="BuildingCard" parent="HUD/DeckTray" instance=ExtResource( 10 )]
+position = Vector2( 171, 373 )
+scale = Vector2( 0.5, 0.5 )
+description = "Build a new house"
+texture = ExtResource( 12 )
 
 [connection signal="pressed" from="HUD/ShowDeckButton" to="HUD" method="_on_TextureButton_pressed"]
