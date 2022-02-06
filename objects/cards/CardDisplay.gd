@@ -1,16 +1,26 @@
 extends Node2D
 
 onready var game = get_tree().current_scene
+onready var description_label = get_node("ColorRect/MarginContainer/Description")
+onready var sprite = get_node("ColorRect/MarginContainer2/Sprite")
 var init_scale
 var init_position
 var focus_position
 export(float) var grow_factor = 1.5
 export(Globals.CARD_TYPE) var card_type = Globals.CARD_TYPE.PLACE
+export(String) var description = ""
+export(Texture) var texture = null
 
 func _ready():
 	init_scale = get_scale()
 	init_position = get_position()
 	focus_position = init_position + Vector2(0, -100)
+	init_card()
+
+func init_card():
+	description_label.set_text(description)
+	if texture != null:
+		sprite.set_texture(texture)
 
 func act(map_position: Vector2):
 	# for now the card just places its object in the cell
