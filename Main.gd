@@ -16,11 +16,6 @@ func _ready():
 	grid.place_in_cell($Treasure, Vector2(12, 6))
 	selected_character = $Themistocles
 	selected_character.select()
-	_connect_character($Themistocles)
-	_connect_character($Pericles)
-
-func _connect_character(character):
-	character.connect("player_selected", self, "select_character", [character])
 
 func select_character(character):
 	# deselect previously selected character

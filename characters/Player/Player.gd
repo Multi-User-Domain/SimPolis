@@ -2,14 +2,14 @@ extends KinematicBody2D
 
 class_name Character
 
-onready var animation_player = $AnimationPlayer
+onready var game = get_tree().current_scene
+onready var animation_player = get_node("AnimationPlayer")
 export var speed: = 400  # How fast the player will move (pixels/sec).
 export var character_name: = ""
 var _target_coords # can be null or Vector2
 var velocity: = Vector2.ZERO
 var screen_size  # Size of the game window.
 
-signal player_selected
 signal destination_arrived # triggered when movement complete
 
 
@@ -40,11 +40,12 @@ func set_target_coords(coords: Vector2, callback=null):
 
 func _on_KinematicBody2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		emit_signal("player_selected")
 		select()
 
 func select():
+	game.select_character(self)
 	$NameLabel.set_visible_characters(-1)
 
 func deselect():
+	game.selected_character = null
 	$NameLabel.set_visible_characters(0)
