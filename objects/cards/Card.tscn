@@ -43,6 +43,7 @@ mouse_filter = 2
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Spawn a new Fox"
+text = "Spawn a new Fox"
 
 [node name="MarginContainer2" type="MarginContainer" parent="ColorRect"]
 margin_left = 7.0

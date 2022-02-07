@@ -8,8 +8,12 @@ var init_position
 var focus_position
 export(float) var grow_factor = 1.5
 export(Globals.CARD_TYPE) var card_type = Globals.CARD_TYPE.PLACE
+export(Globals.PLACE_TARGET) var place_target = Globals.PLACE_TARGET.CHARACTER
 export(String) var description = ""
 export(Texture) var texture = null
+
+var character_scene = preload("res://characters/Player/Player.tscn")
+var house_scene = preload("res://buildings/House.tscn")
 
 func _ready():
 	init_scale = get_scale()
@@ -21,6 +25,18 @@ func init_card():
 	description_label.set_text(description)
 	if texture != null:
 		sprite.set_texture(texture)
+
+# function for returning a Sprite representation of the object which is going to be placed
+# TODO: is it best to use scene inheritance for different kinds of card, or a property referencing
+#  a behavioural object?
+func get_representation():
+	match place_target:
+		Globals.PLACE_TARGET.CHARACTER:
+			return character_scene.instance()
+		Globals.PLACE_TARGET.HOUSE:
+			return house_scene.instance()
+	
+	return null
 
 func act(map_position: Vector2):
 	# for now the card just places its object in the cell
