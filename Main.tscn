@@ -78,14 +78,13 @@ __meta__ = {
 BLOCK_COLOR = Color( 1, 0, 0, 0.592157 )
 DEFAULT_COLOR = Color( 1, 0.960784, 0, 0.317647 )
 
+[node name="Treasure" parent="." instance=ExtResource( 6 )]
+
 [node name="Themistocles" parent="." instance=ExtResource( 5 )]
 character_name = "Themistocles"
 
 [node name="Pericles" parent="." instance=ExtResource( 5 )]
 character_name = "Pericles"
-
-[node name="Treasure" parent="." instance=ExtResource( 6 )]
-position = Vector2( 295, 88 )
 
 [node name="ItemPlacePrompt" parent="." instance=ExtResource( 7 )]
 

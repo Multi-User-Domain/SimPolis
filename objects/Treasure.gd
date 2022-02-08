@@ -1,4 +1,4 @@
-extends "InteractiveObject.gd"
+extends "res://objects/InteractiveObject.gd"
 
 onready var animation_player = $AnimationPlayer
 var is_open = false
