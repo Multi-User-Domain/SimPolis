@@ -35,6 +35,10 @@ func _physics_process(delta):
 			else:
 				animation_player.play("IdleLeft")
 
+func set_position(position: Vector2):
+	position += game.grid.half_cell_size
+	.set_position(position)
+
 func set_target_coords(coords: Vector2, callback=null):
 	_target_coords = coords
 

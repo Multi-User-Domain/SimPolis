@@ -33,7 +33,7 @@ func move_to_cell(node, world_target: Vector2):
 	empty_cell(node_cell)
 	place_in_cell(node, cell_target, false)
 	
-	return map_to_cell_centre(cell_target)
+	return map_to_world(cell_target)
 
 func empty_cell(cell: Vector2):
 	if(!cell_within_bounds(cell)):
@@ -67,7 +67,7 @@ func place_in_cell(node, cell: Vector2, set_physical_position: bool = true, node
 	
 	# set the node's physical position on screen
 	if set_physical_position:
-		node.set_position(map_to_cell_centre(cell))
+		node.set_position(map_to_world(cell))
 	
 	return true # indicate success
 
@@ -84,12 +84,6 @@ func can_move_to_coords(target_coords: Vector2):
 
 func can_move_to_cell(target_cell: Vector2):
 	return cell_within_bounds(target_cell) and get_node_in_cell(target_cell) == null
-
-func world_to_cell_centre(vector_target: Vector2):
-	return map_to_cell_centre(world_to_map(vector_target))
-
-func map_to_cell_centre(cell_target: Vector2):
-	return map_to_world(cell_target) + half_cell_size
 
 # will attempt to find an adjacent cell which is empty for movement
 # will return the cell co-ordinates or null
