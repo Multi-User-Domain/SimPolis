@@ -1,7 +1,8 @@
 extends "res://objects/InteractiveObject.gd"
 
-onready var animation_player = $AnimationPlayer
+onready var animation_player = get_node("AnimationPlayer")
 var is_open = false
+var size_cells := Vector2(2,2)
 
 func can_interact(agent: Node):
 	return !is_open
