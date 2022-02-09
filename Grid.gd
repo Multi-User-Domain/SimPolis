@@ -41,15 +41,23 @@ func empty_cell(cell: Vector2):
 	
 	inhabitants[cell.x][cell.y] = null
 
-func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
+func place_in_cell(node, cell: Vector2, set_physical_position: bool = true, node_size_cells: Vector2 = Vector2(1,1)):
 	#
 	#	return false if unable to place in the cell, true if successful
 	#
-	if(!can_move_to_cell(cell)):
-		return false
+	for i in range(node_size_cells.x):
+		for j in range(node_size_cells.y):
+			var check_cell = cell - Vector2(i, j)
+			
+			if(!can_move_to_cell(check_cell)):
+				return false
 	
 	# store references to the node's position
-	inhabitants[cell.x][cell.y] = node
+	for i in range(node_size_cells.x):
+		for j in range(node_size_cells.y):
+			var check_cell = cell - Vector2(i, j)
+			
+			inhabitants[check_cell.x][check_cell.y] = node
 	
 	# set the node's physical position on screen
 	if set_physical_position:
