@@ -36,7 +36,8 @@ func move_to_cell(node, world_target: Vector2):
 	return map_to_cell_centre(cell_target)
 
 func empty_cell(cell: Vector2):
-	assert(cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height, "Cell index out of bounds!")
+	if(!cell_within_bounds(cell)):
+		return
 	
 	inhabitants[cell.x][cell.y] = null
 
@@ -44,7 +45,6 @@ func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 	#
 	#	return false if unable to place in the cell, true if successful
 	#
-	assert(cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height, "Cell index out of bounds!")
 	if(!can_move_to_cell(cell)):
 		return false
 	
@@ -58,15 +58,18 @@ func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 	return true # indicate success
 
 func get_node_in_cell(cell: Vector2):
-	assert(cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height, "Cell index out of bounds!")
+	assert(cell_within_bounds(cell), "Cell index out of bounds!")
 	
 	return inhabitants[cell.x][cell.y]
+
+func cell_within_bounds(cell: Vector2):
+	return cell.x >= 0 and cell.x < grid_width and cell.y >= 0 and cell.y < grid_height
 
 func can_move_to_coords(target_coords: Vector2):
 	return can_move_to_cell(world_to_map(target_coords))
 
 func can_move_to_cell(target_cell: Vector2):
-	return get_node_in_cell(target_cell) == null
+	return cell_within_bounds(target_cell) and get_node_in_cell(target_cell) == null
 
 func world_to_cell_centre(vector_target: Vector2):
 	return map_to_cell_centre(world_to_map(vector_target))
