@@ -1,6 +1,7 @@
 extends Node2D
 
 
+onready var game = get_tree().current_scene
 var current_prompt_item = null
 
 
@@ -8,7 +9,8 @@ func _ready():
 	clear()
 
 func _process(delta):
-	set_position(get_global_mouse_position())
+	# sets the position of the sprite to the mouse position snapped to grid
+	set_position(game.grid.map_to_world(game.grid.world_to_map(get_global_mouse_position())))
 
 func clear():
 	self.hide()
