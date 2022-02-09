@@ -51,10 +51,12 @@ func check_place_in_cell(cell: Vector2, node_size_cells: Vector2 = Vector2(1,1))
 	
 	return true
 
-func place_in_cell(node, cell: Vector2, set_physical_position: bool = true, node_size_cells: Vector2 = Vector2(1,1)):
+func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 	#
 	#	return false if unable to place in the cell, true if successful
 	#
+	var node_size_cells = node.size_cells if node.get('size_cells') else Vector2(1,1)
+	
 	if(!check_place_in_cell(cell, node_size_cells)):
 		return false
 	

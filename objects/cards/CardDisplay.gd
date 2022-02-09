@@ -50,7 +50,7 @@ func act(map_position: Vector2):
 	
 	if success:
 		var spawned_item = game.place_item_prompt.extract_item()
-		game.grid.place_in_cell(spawned_item, map_position, true, size)
+		game.grid.place_in_cell(spawned_item, map_position, true)
 		game.grid.add_child(spawned_item)
 		game.clear_selected_card()
 
