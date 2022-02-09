@@ -40,11 +40,17 @@ func get_representation():
 
 func act(map_position: Vector2):
 	# for now the card just places its object in the cell
-	var success = game.grid.place_in_cell(game.place_item_prompt, map_position, false)
+	
+	# get the size of the object to place, default to 1x1
+	var item = game.place_item_prompt.get_item()
+	var size: Vector2 = item.size_cells if item.get('size_cells') else Vector2(1,1)
+	
+	# place it into the cell
+	var success = game.grid.check_place_in_cell(map_position, size)
 	
 	if success:
 		var spawned_item = game.place_item_prompt.extract_item()
-		spawned_item.set_position(game.grid.map_to_cell_centre(map_position))
+		game.grid.place_in_cell(spawned_item, map_position, true, size)
 		game.grid.add_child(spawned_item)
 		game.clear_selected_card()
 

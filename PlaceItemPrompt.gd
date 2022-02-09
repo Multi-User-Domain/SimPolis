@@ -16,6 +16,9 @@ func clear():
 	self.hide()
 	set_process(false)
 
+func get_item():
+	return current_prompt_item
+
 func extract_item():
 	var result = current_prompt_item
 	remove_child(current_prompt_item)
