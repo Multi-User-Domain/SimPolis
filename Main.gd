@@ -2,6 +2,7 @@ extends Node2D
 
 onready var place_item_prompt = get_node("ItemPlacePrompt")
 onready var grid = get_node("Grid")
+onready var camera = get_node("Camera")
 var selected_character: Character
 var selected_card: Node2D
 
@@ -9,6 +10,8 @@ var selected_card: Node2D
 var mouse_hovering_over_card: Node2D = null
 
 func _ready():
+	camera.init()
+	
 	grid.place_in_cell($Themistocles, Vector2(4,4))
 	grid.place_in_cell($Pericles, Vector2(8,4))
 	grid.place_in_cell($Treasure, Vector2(12, 6))
