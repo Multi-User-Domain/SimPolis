@@ -27,6 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://autoload/Globals.gd"
+MudManager="*res://autoload/MudManager.cs"
 
 [display]
 
