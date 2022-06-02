@@ -11,3 +11,7 @@ export_presets.cfg
 data_*/
 
 .DS_STORE
+
+# Visual Studio
+
+.vscode/
