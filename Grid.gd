@@ -3,8 +3,14 @@ extends TileMap
 
 export var grid_width: int
 export var grid_height: int
-# an array with references to objects inhabiting a tile
+
+# 2D array of references used to access who is in each tile on the map (null means nobody)
 var inhabitants = []
+# dictionary of inhabitants references used for saving/loading
+# each record is a mapping of urlid -> { coordinates, reference (memory address for access) }
+# see function below set_inhabitant_for_saving
+var inhabitants_for_saving = {}
+
 var half_cell_size = cell_size * 0.5
 
 
@@ -45,6 +51,7 @@ func empty_cell(cell: Vector2):
 	if(!cell_within_bounds(cell)):
 		return
 	
+	clear_inhabitant_for_saving(cell)
 	inhabitants[cell.x][cell.y] = null
 
 func check_place_in_cell(cell: Vector2, node_size_cells: Vector2 = Vector2(1,1)):
@@ -56,6 +63,33 @@ func check_place_in_cell(cell: Vector2, node_size_cells: Vector2 = Vector2(1,1))
 				return false
 	
 	return true
+
+func clear_inhabitant_for_saving(cell: Vector2):
+	var inhabitant = inhabitants[cell.x][cell.y]
+	if inhabitant.get('urlid'):
+		inhabitants_for_saving[inhabitant.urlid] = null
+
+func set_inhabitant_for_saving(node, cell: Vector2):
+	if node.get('urlid'):
+		inhabitants_for_saving[node.urlid] = {
+			"coordinates": {
+				"x": cell.x,
+				"y": cell.y
+			},
+			"reference": node
+		}
+
+func get_inhabitant_for_saving_for_saving(urlid):
+	var inhabitant = inhabitants_for_saving[urlid]
+	if inhabitant != null or not inhabitant.has_method("save"):
+		return {
+			"coordinates": {
+				"x": inhabitant["coordinates"]["x"],
+				"y": inhabitant["coordinates"]["y"]
+			},
+			"object": inhabitants_for_saving[urlid]["reference"].save()
+		}
+	return null
 
 func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 	#
@@ -74,6 +108,9 @@ func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 			
 			inhabitants[check_cell.x][check_cell.y] = node
 	
+	# log that the object exists (for saving/loading the map)
+	set_inhabitant_for_saving(node, cell)
+
 	# set the node's physical position on screen
 	if set_physical_position:
 		node.set_position(map_to_world(cell))
