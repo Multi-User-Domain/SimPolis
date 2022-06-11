@@ -6,6 +6,12 @@ It's a city builder like game which uses cards to perform actions. The idea is t
 
 For working with RDF, we use [dotNetRdf](https://dotnetrdf.org). One great feature of Godot is the ability to mix GDScript and C# in the same project
 
+# RDF-Ready Nodes
+
+In Godot all objects ultimately inherit from `Node`
+
+Nodes which are RDF-ready should have an attribute `urlid` (a string URL identifying the object... it is globally unique. [More information on webid and graph data](https://inqlab.net/2019-11-19-a-primer-on-the-semantic-web-and-linked-data.html)), and should contain a function `save` which serializes the object into a JSON-LD dict. Common classes like agents and buildings already provide implementations of this. Not everything has to be JSON-LD, but anything that isn't won't be shared in the federation (it will be local to the game, and other games won't know about it at all)
+
 # Agents
 
 Agents are game actors, e.g. characters. They are expected to be able to perform tasks, by playing _cards_
