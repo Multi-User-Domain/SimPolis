@@ -14,6 +14,14 @@ func _ready():
 		inhabitants.append([])
 		inhabitants[x].resize(grid_height)
 
+func request_move(actor, cell_target: Vector2):
+	if !can_move_to_cell(cell_target):
+		return false
+
+	move_to_cell(actor, cell_target)
+
+	return true
+
 func request_move_direction(actor, direction: Vector2):
 	#
 	# :return: False if not possible to move, the new grid location if it is
@@ -22,9 +30,7 @@ func request_move_direction(actor, direction: Vector2):
 	direction = direction.normalized()
 	var cell_target = cell_start + direction
 	
-	if get_node_in_cell(cell_target != null):
-		return move_to_cell(actor, cell_target)
-	return false
+	return request_move(actor, cell_target)
 
 func move_to_cell(node, world_target: Vector2):
 	var node_cell = world_to_map(node.position)
@@ -53,6 +59,7 @@ func check_place_in_cell(cell: Vector2, node_size_cells: Vector2 = Vector2(1,1))
 
 func place_in_cell(node, cell: Vector2, set_physical_position: bool = true):
 	#
+	# 	place_in_cell is intended for placing objects are bigger than 1x1 cells and which don't move
 	#	return false if unable to place in the cell, true if successful
 	#
 	var node_size_cells = node.size_cells if node.get('size_cells') else Vector2(1,1)
@@ -109,3 +116,8 @@ func get_adjacent_empty_cell(cell_target: Vector2):
 # returns true if two cells are adjacent
 func cells_are_adjacent(cell_a: Vector2, cell_b: Vector2):
 	return abs(cell_a.x - cell_b.x) <= 1 and abs(cell_a.y - cell_b.y) <= 1
+
+func clear_map():
+	for x in range(inhabitants.size()):
+		for y in range(inhabitants[x].size()):
+			empty_cell(Vector2(x, y))
