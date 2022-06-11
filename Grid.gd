@@ -158,3 +158,26 @@ func clear_map():
 	for x in range(inhabitants.size()):
 		for y in range(inhabitants[x].size()):
 			empty_cell(Vector2(x, y))
+
+func get_map_save_data():
+	# builds a JSON-LD representation of the whole map for saving
+	var save_data = {}
+
+	# save the tile map data
+	save_data['tile_map'] = []
+	for x in range(grid_width):
+		# init each row and column
+		save_data['tile_map'].append([])
+		save_data['tile_map'][x].resize(grid_height)
+
+		# save the int value used for the map data
+		# TODO: use something RDF-friendly
+		for y in range(grid_height):
+			save_data['tile_map'][x][y] = get_cell(x, y)
+
+	# save the inhabitant data
+	save_data['map_inhabitants'] = {}
+	for urlid in inhabitants_for_saving.keys():
+		save_data['map_inhabitants'][urlid] = get_inhabitant_for_saving_for_saving(urlid)
+
+	return save_data
