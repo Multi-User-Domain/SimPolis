@@ -4,6 +4,8 @@ This is a very early development game. I'm intending to use it to learn Godot, s
 
 It's a city builder like game which uses cards to perform actions. The idea is that using RDF these cards can become to some extent data-driven and allow for aspects of the game to be decentralised
 
+For working with RDF, we use [dotNetRdf](https://dotnetrdf.org). One great feature of Godot is the ability to mix GDScript and C# in the same project
+
 # Agents
 
 Agents are game actors, e.g. characters. They are expected to be able to perform tasks, by playing _cards_
