@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/world/tile/grass.png" type="Texture" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://assets/objects/card/birth.png" type="Texture" id=11]
 [ext_resource path="res://assets/objects/buildings/house_1.png" type="Texture" id=12]
 [ext_resource path="res://CameraController.gd" type="Script" id=13]
+[ext_resource path="res://assets/hud/icon/save.png" type="Texture" id=14]
+[ext_resource path="res://gui/SaveButton.gd" type="Script" id=15]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -102,9 +104,6 @@ focus_mode = 0
 toggle_mode = true
 enabled_focus_mode = 0
 texture_normal = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DeckTray" type="Node2D" parent="HUD"]
 
@@ -121,10 +120,22 @@ place_target = 1
 description = "Build a new house"
 texture = ExtResource( 12 )
 
+[node name="SaveButton" type="TextureButton" parent="HUD"]
+margin_left = 653.0
+margin_top = 1.0
+margin_right = 717.0
+margin_bottom = 65.0
+texture_normal = ExtResource( 14 )
+expand = true
+script = ExtResource( 15 )
+
 [node name="Camera" type="Camera2D" parent="."]
 current = true
 limit_left = 0
 limit_top = 0
 script = ExtResource( 13 )
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="pressed" from="HUD/ShowDeckButton" to="HUD" method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="HUD/SaveButton" to="HUD/SaveButton" method="_on_SaveButton_pressed"]

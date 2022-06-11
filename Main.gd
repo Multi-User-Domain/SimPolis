@@ -88,3 +88,11 @@ func _input(event):
 func complete_interaction(agent_node, target_node):
 	target_node.interact(agent_node)
 	agent_node.disconnect("destination_arrived", self, "complete_interaction")
+
+func save_game():
+	var save_file = File.new()
+	save_file.open("user://savegame.save", File.WRITE)
+	
+	var map_save_data = grid.get_map_save_data()
+	save_file.store_line(to_json(map_save_data))
+	save_file.close()
