@@ -1,11 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/world/tile/grass.png" type="Texture" id=2]
 [ext_resource path="res://assets/world/tile/DirtTileset.png" type="Texture" id=3]
 [ext_resource path="res://Grid.gd" type="Script" id=4]
-[ext_resource path="res://characters/Player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/Treasure.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ItemPlacePrompt.tscn" type="PackedScene" id=7]
 [ext_resource path="res://HUD.gd" type="Script" id=8]
 [ext_resource path="res://icon.png" type="Texture" id=9]
@@ -81,14 +79,6 @@ __meta__ = {
 }
 BLOCK_COLOR = Color( 1, 0, 0, 0.592157 )
 DEFAULT_COLOR = Color( 1, 0.960784, 0, 0.317647 )
-
-[node name="Treasure" parent="." instance=ExtResource( 6 )]
-
-[node name="Themistocles" parent="." instance=ExtResource( 5 )]
-character_name = "Themistocles"
-
-[node name="Pericles" parent="." instance=ExtResource( 5 )]
-character_name = "Pericles"
 
 [node name="ItemPlacePrompt" parent="." instance=ExtResource( 7 )]
 

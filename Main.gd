@@ -12,6 +12,7 @@ var mouse_hovering_over_card: Node2D = null
 # TODO: duplicated logic with CardDisplay. Use @types in each then write a Spawn script
 var character_scene = preload("res://characters/Player/Player.tscn")
 var house_scene = preload("res://buildings/House.tscn")
+var treasure_scene = preload("res://objects/Treasure.tscn")
 
 func _ready():
 	camera.init()
@@ -146,8 +147,19 @@ func load_game():
 	save_file.close()
 
 func init_new_game():
-	grid.place_in_cell($Themistocles, Vector2(4,4))
-	grid.place_in_cell($Pericles, Vector2(8,4))
-	grid.place_in_cell($Treasure, Vector2(12, 6))
-	selected_character = $Themistocles
+	var themistocles = character_scene.instance()
+	themistocles.character_name = "Themistocles"
+	grid.add_child(themistocles)
+	grid.place_in_cell(themistocles, Vector2(4,4))
+
+	var pericles = character_scene.instance()
+	pericles.character_name = "Pericles"
+	grid.add_child(pericles)
+	grid.place_in_cell(pericles, Vector2(8,4))
+
+	var treasure = treasure_scene.instance()
+	grid.add_child(treasure)
+	grid.place_in_cell(treasure, Vector2(12, 6))
+	
+	selected_character = themistocles
 	selected_character.select()
