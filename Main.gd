@@ -9,14 +9,13 @@ var selected_card: Node2D
 # will be set to the hovered card by child (for detecting if a card has been selected
 var mouse_hovering_over_card: Node2D = null
 
+# TODO: duplicated logic with CardDisplay. Use @types in each then write a Spawn script
+var character_scene = preload("res://characters/Player/Player.tscn")
+var house_scene = preload("res://buildings/House.tscn")
+
 func _ready():
 	camera.init()
-	
-	grid.place_in_cell($Themistocles, Vector2(4,4))
-	grid.place_in_cell($Pericles, Vector2(8,4))
-	grid.place_in_cell($Treasure, Vector2(12, 6))
-	selected_character = $Themistocles
-	selected_character.select()
+	load_game()
 
 func select_character(character):
 	# deselect previously selected character
@@ -96,3 +95,59 @@ func save_game():
 	var map_save_data = grid.get_map_save_data()
 	save_file.store_line(to_json(map_save_data))
 	save_file.close()
+
+func load_game():
+	var save_file = File.new()
+
+	# no save file to load in this case, init a new one
+	if not save_file.file_exists("user://savegame.save"):
+		return init_new_game()
+
+	grid.clear()
+
+	save_file.open("user://savegame.save", File.READ)
+
+	# load the tile map
+	var map_data = parse_json(save_file.get_line())
+	grid.load_tile_map_from_array(map_data['tile_map'])
+
+	# load the saved objects
+	for urlid in map_data['map_inhabitants'].keys():
+		# in the save file we saved objects as their map position + their data
+		var obj = map_data['map_inhabitants'][urlid]["object"]
+		var coordinates = map_data['map_inhabitants'][urlid]["coordinates"]
+
+		# the @type key will dictate to us which scene to instance
+		var instance = null
+		match obj.get("@type"):
+			Globals.MUD_BUILDING.HOUSE:
+				instance = house_scene.instance()
+			Globals.MUD_CHAR.CHARACTER:
+				instance = character_scene.instance()
+		
+		if instance == null:
+			print("received unkown instance type in save file " + str(obj.get("@type")))
+			continue
+
+		# serializes the properties contained in the obj into the instance (overridden in each class)
+		instance.load(obj)
+		
+		# figure out the size of the object (the number of cells it takes up)
+		var size: Vector2 = Vector2(obj['size'].x, obj['size'].y) if 'size' in obj else Vector2(1,1)
+		var map_position: Vector2 = Vector2(coordinates.x, coordinates.y)
+		
+		# place it into the cell
+		var success = grid.check_place_in_cell(map_position, size)
+		
+		if success:
+			grid.add_child(instance)
+			grid.place_in_cell(instance, map_position, true)
+
+	save_file.close()
+
+func init_new_game():
+	grid.place_in_cell($Themistocles, Vector2(4,4))
+	grid.place_in_cell($Pericles, Vector2(8,4))
+	grid.place_in_cell($Treasure, Vector2(12, 6))
+	selected_character = $Themistocles
+	selected_character.select()

@@ -15,7 +15,10 @@ var half_cell_size = cell_size * 0.5
 
 
 func _ready():
-	# initialise the inhabitants map
+	_init_inhabitants()
+
+func _init_inhabitants():
+	inhabitants = []
 	for x in range(grid_width):
 		inhabitants.append([])
 		inhabitants[x].resize(grid_height)
@@ -181,3 +184,12 @@ func get_map_save_data():
 		save_data['map_inhabitants'][urlid] = get_inhabitant_for_saving_for_saving(urlid)
 
 	return save_data
+
+func load_tile_map_from_array(tile_map_data):
+	grid_width = len(tile_map_data)
+	grid_height = len(tile_map_data[0])
+	_init_inhabitants()
+
+	for x in range(len(tile_map_data)):
+		for y in range(len(tile_map_data[x])):
+			set_cellv(Vector2(x, y), tile_map_data[x][y])
