@@ -125,6 +125,8 @@ func load_game():
 				instance = house_scene.instance()
 			Globals.MUD_CHAR.CHARACTER:
 				instance = character_scene.instance()
+			"http://purl.org/net/VideoGameOntology#Item":
+				instance = treasure_scene.instance()
 		
 		if instance == null:
 			print("received unkown instance type in save file " + str(obj.get("@type")))
@@ -160,6 +162,6 @@ func init_new_game():
 	var treasure = treasure_scene.instance()
 	grid.add_child(treasure)
 	grid.place_in_cell(treasure, Vector2(12, 6))
-	
+
 	selected_character = themistocles
 	selected_character.select()
