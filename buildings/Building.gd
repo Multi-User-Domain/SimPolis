@@ -20,6 +20,7 @@ func save(world_position=null):
 	# serializes the building into JSON-LD for saving
 	var save_data = {
 		"@id": urlid,
+		"@type": Globals.MUD.BUILDING,
 		"http://www.w3.org/2006/vcard/ns#fn": building_name,
 		"size": {
 			"x": size_cells.x,

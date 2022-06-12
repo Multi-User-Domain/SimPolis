@@ -61,6 +61,7 @@ func save(world_position=null):
 	# serializes the character into JSON-LD for saving
 	var save_data = {
 		"@id": urlid,
+		"@type": Globals.MUD_CHAR.CHARACTER,
 		"http://www.w3.org/2006/vcard/ns#fn": character_name
 	}
 
