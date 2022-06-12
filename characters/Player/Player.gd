@@ -57,6 +57,12 @@ func deselect():
 	game.selected_character = null
 	$NameLabel.set_visible_characters(0)
 
+func load(obj):
+	urlid = obj["@id"]
+
+	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
+		character_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
+
 func save(world_position=null):
 	# serializes the character into JSON-LD for saving
 	var save_data = {

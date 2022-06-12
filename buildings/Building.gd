@@ -16,6 +16,13 @@ func _ready():
 	# TODO: get a urlid from world server connection
 	urlid = "_Building_" + building_name + str(randi())
 
+func load(obj):
+	urlid = obj["@id"]
+	size_cells = Vector2(obj["size"].x, obj["size"].y)
+
+	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
+		building_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
+
 func save(world_position=null):
 	# serializes the building into JSON-LD for saving
 	var save_data = {
