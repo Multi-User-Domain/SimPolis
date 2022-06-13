@@ -21,3 +21,7 @@ const MUD_CHAR = {
 const MUD_BUILDING = {
 	HOUSE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudbuildings.ttl#House"
 }
+
+const MUD_ITEMS = {
+	TREASURE_CHEST = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/muditems.ttl#TreasureChest"
+}

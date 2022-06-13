@@ -88,7 +88,8 @@ func get_inhabitant_for_saving_for_saving(urlid):
 		return {
 			"coordinates": {
 				"x": inhabitant["coordinates"]["x"],
-				"y": inhabitant["coordinates"]["y"]
+				"y": inhabitant["coordinates"]["y"],
+				"z": 0
 			},
 			"object": inhabitants_for_saving[urlid]["reference"].save()
 		}
@@ -166,22 +167,53 @@ func get_map_save_data():
 	# builds a JSON-LD representation of the whole map for saving
 	var save_data = {}
 
+	save_data["@context"] = {
+		"hasTileMap": {
+			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#hasTileMap",
+			"@container": "@list"
+		},
+		"hasMapInhabitants": {
+			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#hasMapInhabitants"
+		},
+		"coordinates": {
+			"@id": "https://w3id.org/mdo/structure/hasCartesianCoordinates"
+		},
+		"object": {
+			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#inhabitantData"
+		},
+		"x": {
+			"@id": "https://w3id.org/mdo/structure/X_axisCoordinate"
+		},
+		"y": {
+			"@id": "https://w3id.org/mdo/structure/Y_axisCoordinate"
+		},
+		"z": {
+			"@id": "https://w3id.org/mdo/structure/Z_axisCoordinate"
+		},
+		"hasSize": {
+			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#hasSize"
+		},
+		"isUsed": {
+			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/muditems.ttl#isUsed"
+		}
+	}
+
 	# save the tile map data
-	save_data['tile_map'] = []
+	save_data['hasTileMap'] = []
 	for x in range(grid_width):
 		# init each row and column
-		save_data['tile_map'].append([])
-		save_data['tile_map'][x].resize(grid_height)
+		save_data['hasTileMap'].append([])
+		save_data['hasTileMap'][x].resize(grid_height)
 
 		# save the int value used for the map data
 		# TODO: use something RDF-friendly
 		for y in range(grid_height):
-			save_data['tile_map'][x][y] = get_cell(x, y)
+			save_data['hasTileMap'][x][y] = get_cell(x, y)
 
 	# save the inhabitant data
-	save_data['map_inhabitants'] = {}
+	save_data['hasMapInhabitants'] = {}
 	for urlid in inhabitants_for_saving.keys():
-		save_data['map_inhabitants'][urlid] = get_inhabitant_for_saving_for_saving(urlid)
+		save_data['hasMapInhabitants'][urlid] = get_inhabitant_for_saving_for_saving(urlid)
 
 	return save_data
 

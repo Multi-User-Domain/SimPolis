@@ -18,7 +18,7 @@ func _ready():
 
 func load(obj):
 	urlid = obj["@id"]
-	size_cells = Vector2(obj["size"].x, obj["size"].y)
+	size_cells = Vector2(obj["hasSize"].x, obj["hasSize"].y)
 
 	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
 		building_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
@@ -29,16 +29,20 @@ func save(world_position=null):
 		"@id": urlid,
 		"@type": Globals.MUD.BUILDING,
 		"http://www.w3.org/2006/vcard/ns#fn": building_name,
-		"size": {
+		"hasSize": {
+			"@type": "https://w3id.org/mdo/structure/CoordinateVector",
 			"x": size_cells.x,
-			"y": size_cells.y
+			"y": size_cells.y,
+			"z": 0
 		}
 	}
 
 	if world_position != null:
 		save_data[world_position] = {
+			"@type": "https://w3id.org/mdo/structure/CoordinateVector",
 			"x": world_position.x,
-			"y": world_position.y
+			"y": world_position.y,
+			"z": 0
 		}
 
 	return save_data

@@ -73,8 +73,10 @@ func save(world_position=null):
 
 	if world_position != null:
 		save_data[world_position] = {
+			"@type": "https://w3id.org/mdo/structure/CoordinateVector",
 			"x": world_position.x,
-			"y": world_position.y
+			"y": world_position.y,
+			"z": 0
 		}
 	
 	return save_data

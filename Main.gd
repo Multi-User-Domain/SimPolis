@@ -94,6 +94,10 @@ func save_game():
 	save_file.open("user://savegame.save", File.WRITE)
 	
 	var map_save_data = grid.get_map_save_data()
+	
+	if !("@context" in map_save_data):
+		map_save_data["@context"] = {}
+	
 	save_file.store_line(to_json(map_save_data))
 	save_file.close()
 
@@ -110,13 +114,13 @@ func load_game():
 
 	# load the tile map
 	var map_data = parse_json(save_file.get_line())
-	grid.load_tile_map_from_array(map_data['tile_map'])
+	grid.load_tile_map_from_array(map_data['hasTileMap'])
 
 	# load the saved objects
-	for urlid in map_data['map_inhabitants'].keys():
+	for urlid in map_data['hasMapInhabitants'].keys():
 		# in the save file we saved objects as their map position + their data
-		var obj = map_data['map_inhabitants'][urlid]["object"]
-		var coordinates = map_data['map_inhabitants'][urlid]["coordinates"]
+		var obj = map_data['hasMapInhabitants'][urlid]["object"]
+		var coordinates = map_data['hasMapInhabitants'][urlid]["coordinates"]
 
 		# the @type key will dictate to us which scene to instance
 		var instance = null
@@ -125,7 +129,7 @@ func load_game():
 				instance = house_scene.instance()
 			Globals.MUD_CHAR.CHARACTER:
 				instance = character_scene.instance()
-			"http://purl.org/net/VideoGameOntology#Item":
+			Globals.MUD_ITEMS.TREASURE_CHEST:
 				instance = treasure_scene.instance()
 		
 		if instance == null:
