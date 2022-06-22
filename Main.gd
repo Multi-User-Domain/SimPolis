@@ -101,6 +101,27 @@ func save_game():
 	save_file.store_line(to_json(map_save_data))
 	save_file.close()
 
+func push_world_to_server(data_to_send):
+	# set up HTTPRequest node to send the request
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.connect("request_completed", self, "_http_request_completed")
+
+	# set up the request
+	var body = JSON.print(data_to_send)
+	var headers = ["Content-Type: application/ld+json"]
+	var url = "http://localhost:5000/world/"
+	
+	# perform a POST request
+	var error = http_request.request(url, headers, false, HTTPClient.METHOD_POST, body)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+
+# Called when the HTTP request is completed.
+func _http_request_completed(result, response_code, headers, body):
+	# var response = parse_json(body.get_string_from_utf8())
+	pass
+
 func load_game():
 	var save_file = File.new()
 
