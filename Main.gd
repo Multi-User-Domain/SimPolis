@@ -120,6 +120,8 @@ func push_world_to_server(data_to_send):
 # Called when the HTTP request is completed.
 func _http_request_completed(result, response_code, headers, body):
 	# var response = parse_json(body.get_string_from_utf8())
+	print("got response!")
+	print(str(body))
 	pass
 
 func load_game():
@@ -170,7 +172,8 @@ func load_game():
 		if success:
 			grid.add_child(instance)
 			grid.place_in_cell(instance, map_position, true)
-
+	
+	push_world_to_server(map_data)
 	save_file.close()
 
 func init_new_game():
