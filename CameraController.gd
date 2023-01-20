@@ -4,6 +4,7 @@ extends Node2D
 onready var game = get_tree().current_scene
 onready var camera = get_node("Camera2D")
 onready var centre_screen = get_viewport_rect().size * 0.5
+# absolute limits - the camera cannot be moved past these co-ordinates
 var limit_pos_left
 var limit_pos_right
 var limit_pos_top
