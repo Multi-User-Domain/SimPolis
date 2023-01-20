@@ -52,6 +52,13 @@ func clear_selected_card():
 	selected_card = null
 	place_item_prompt.clear()
 
+func _get_mouse_event_position(pos: Vector2):
+	"""
+	Mouse event positions are relative to the view and don't take into account that the map might have moved
+	This function takes into account camera position
+	"""
+	return pos + (camera.position - camera.centre_screen)
+
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		
@@ -66,18 +73,19 @@ func _input(event):
 		
 		# we have received an action command (right click)
 		elif event.button_index == BUTTON_RIGHT:
+			var event_position = self._get_mouse_event_position(event.position)
 			
 			# a card is active
 			if selected_card != null:
 				# perform the action and deselect if successful
-				selected_card.act(grid.world_to_map(event.position))
+				selected_card.act(grid.world_to_map(event_position))
 			
 			# no card active, move the selected character
 			elif selected_character != null:
 				# if the cell is empty then move there
-				var target_cell: Vector2 = grid.world_to_map(event.position)
+				var target_cell: Vector2 = grid.world_to_map(event_position)
 				if grid.can_move_to_cell(target_cell):
-					selected_character.set_target_coords(grid.move_to_cell(selected_character, event.position))
+					selected_character.set_target_coords(grid.move_to_cell(selected_character, event_position))
 				# there is something in the cell
 				else:
 					# can I interact with it?
