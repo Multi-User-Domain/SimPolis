@@ -2,7 +2,8 @@ extends Node
 
 
 enum CARD_TYPE {
-	PLACE = 0
+	PLACE = 0,
+	DEBUG_DOWNLOAD = 999
 }
 
 enum PLACE_TARGET {
