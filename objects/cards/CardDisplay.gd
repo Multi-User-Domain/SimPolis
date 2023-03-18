@@ -26,6 +26,22 @@ func init_card():
 	if texture != null:
 		sprite.set_texture(texture)
 
+func load_card_from_jsonld():
+	# read card from file
+	# TODO: fetch card from server
+	var card_file = File.new()
+	card_file.open("res://assets/cards/bite.json", File.READ)
+	var card_data = parse_json(card_file.get_line())
+	card_file.close()
+	print(str(card_data))
+
+	if "mudcard:description" in card_data:
+		description = card_data["mudcard:description"]
+
+	# TODO: read the card type and behaviour from jsonld data
+
+	init_card()
+
 # function for returning a Sprite representation of the object which is going to be placed
 # TODO: is it best to use scene inheritance for different kinds of card, or a property referencing
 #  a behavioural object?
@@ -38,9 +54,7 @@ func get_representation():
 	
 	return null
 
-func act(map_position: Vector2):
-	# for now the card just places its object in the cell
-	
+func act_place(map_position: Vector2):
 	# get the size of the object to place, default to 1x1
 	var item = game.place_item_prompt.get_item()
 	var size: Vector2 = item.size_cells if item.get('size_cells') else Vector2(1,1)
@@ -53,6 +67,15 @@ func act(map_position: Vector2):
 		game.grid.place_in_cell(spawned_item, map_position, true)
 		game.grid.add_child(spawned_item)
 		game.clear_selected_card()
+
+func act(map_position: Vector2):
+	match card_type:
+		Globals.CARD_TYPE.PLACE:
+			return act_place(map_position)
+		Globals.CARD_TYPE.DEBUG_DOWNLOAD:
+			return load_card_from_jsonld()
+	
+	return null
 
 func _on_Card_mouse_entered():
 	game.mouse_hovering_over_card = self
