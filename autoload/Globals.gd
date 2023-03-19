@@ -25,6 +25,10 @@ const MUD_BUILDING = {
 	HOUSE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudbuildings.ttl#House"
 }
 
+const MUD_WORLD = {
+	TILE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#Tile"
+}
+
 const MUD_ITEMS = {
 	TREASURE_CHEST = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/muditems.ttl#TreasureChest"
 }

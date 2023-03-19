@@ -26,6 +26,24 @@ func init_card():
 	if texture != null:
 		sprite.set_texture(texture)
 
+func get_play_target_from_jsonld(card_data):
+	match card_data["mudcard:playTarget"]:
+		Globals.MUD_CHAR.CHARACTER:
+			return Globals.PLAY_TARGET.CHARACTER
+		Globals.MUD_WORLD.TILE:
+			return Globals.PLAY_TARGET.MAP
+		
+	return Globals.PLAY_TARGET.NONE
+
+func get_place_target_from_jsonld(card_data):
+	match card_data["@type"]:
+		Globals.MUD_CHAR.CHARACTER:
+			return Globals.PLACE_TARGET.CHARACTER
+		Globals.MUD_BUILDING.HOUSE:
+			return Globals.PLACE_TARGET.HOUSE
+
+	return null
+
 func load_card_from_jsonld():
 	# read card from file
 	# TODO: fetch card from server
@@ -33,14 +51,18 @@ func load_card_from_jsonld():
 	card_file.open("res://assets/cards/bite.json", File.READ)
 	var card_data = parse_json(card_file.get_line())
 	card_file.close()
-	print(str(card_data))
 
 	if "mudcard:description" in card_data:
 		description = card_data["mudcard:description"]
 
 	# read the card behaviour from jsonld data
 	if "mudcard:playTarget" in card_data:
-		pass
+		play_target = get_play_target_from_jsonld(card_data)
+		
+		if play_target == Globals.PLAY_TARGET.MAP:
+			place_target = get_place_target_from_jsonld(card_data)
+		elif play_target == Globals.PLAY_TARGET.CHARACTER:
+			pass
 
 	init_card()
 
