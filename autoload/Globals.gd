@@ -1,9 +1,11 @@
 extends Node
 
 
-enum CARD_TYPE {
-	PLACE = 0,
-	DEBUG_DOWNLOAD = 999
+enum PLAY_TARGET {
+	MAP = 0,
+	NONE = 1,
+	ANY_OBJECT = 2,
+	CHARACTER = 3
 }
 
 enum PLACE_TARGET {

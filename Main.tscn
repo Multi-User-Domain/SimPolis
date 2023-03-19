@@ -113,7 +113,7 @@ texture = ExtResource( 12 )
 [node name="CardDownload" parent="HUD/DeckTray" instance=ExtResource( 10 )]
 position = Vector2( 242, 373 )
 scale = Vector2( 0.5, 0.5 )
-card_type = 999
+play_target = 1
 description = "(DEBUG) Download Card"
 
 [node name="SaveButton" type="TextureButton" parent="HUD"]

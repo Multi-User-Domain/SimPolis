@@ -7,7 +7,7 @@ var init_scale
 var init_position
 var focus_position
 export(float) var grow_factor = 1.5
-export(Globals.CARD_TYPE) var card_type = Globals.CARD_TYPE.PLACE
+export(Globals.PLAY_TARGET) var play_target = Globals.PLAY_TARGET.MAP
 export(Globals.PLACE_TARGET) var place_target = Globals.PLACE_TARGET.CHARACTER
 export(String) var description = ""
 export(Texture) var texture = null
@@ -38,13 +38,13 @@ func load_card_from_jsonld():
 	if "mudcard:description" in card_data:
 		description = card_data["mudcard:description"]
 
-	# TODO: read the card type and behaviour from jsonld data
+	# read the card behaviour from jsonld data
+	if "mudcard:playTarget" in card_data:
+		pass
 
 	init_card()
 
 # function for returning a Sprite representation of the object which is going to be placed
-# TODO: is it best to use scene inheritance for different kinds of card, or a property referencing
-#  a behavioural object?
 func get_representation():
 	match place_target:
 		Globals.PLACE_TARGET.CHARACTER:
@@ -69,10 +69,10 @@ func act_place(map_position: Vector2):
 		game.clear_selected_card()
 
 func act(map_position: Vector2):
-	match card_type:
-		Globals.CARD_TYPE.PLACE:
+	match play_target:
+		Globals.PLAY_TARGET.MAP:
 			return act_place(map_position)
-		Globals.CARD_TYPE.DEBUG_DOWNLOAD:
+		Globals.PLAY_TARGET.NONE:
 			return load_card_from_jsonld()
 	
 	return null
