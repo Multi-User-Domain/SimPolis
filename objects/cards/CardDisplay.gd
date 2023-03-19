@@ -12,6 +12,7 @@ export(Globals.PLACE_TARGET) var place_target = Globals.PLACE_TARGET.NONE
 export(String) var description = ""
 export(Texture) var texture = null
 
+var arrow_prompt_scene = preload("res://gui/ArrowPrompt.tscn")
 var character_scene = preload("res://characters/Player/Player.tscn")
 var house_scene = preload("res://buildings/House.tscn")
 
@@ -74,15 +75,22 @@ func get_representation():
 		Globals.PLACE_TARGET.HOUSE:
 			return house_scene.instance()
 		Globals.PLACE_TARGET.NONE:
-			# copy the card shape/color
-			var e = get_node("ColorRect")
-			var n = e.duplicate()
-			# for simplicity remove children
-			for child in n.get_children():
-				child.queue_free()
-			n.rect_size = e.rect_size * 0.5
-			n.set_position(n.get_position() - (n.rect_size * 0.5))
-			return n
+			if play_target == Globals.PLAY_TARGET.NONE:
+				# copy the card shape/color
+				var e = get_node("ColorRect")
+				var n = e.duplicate()
+				# for simplicity remove children
+				for child in n.get_children():
+					child.queue_free()
+				n.rect_size = e.rect_size * 0.5
+				n.set_position(n.get_position() - (n.rect_size * 0.5))
+				return n
+			else:
+				var arrow = arrow_prompt_scene.instance()
+				arrow.scale = Vector2(0.2, 0.2)
+				var half_cell = game.grid.half_cell_size
+				arrow.position += Vector2(half_cell.x, -(half_cell.y * 1.25))
+				return arrow
 	
 	return null
 

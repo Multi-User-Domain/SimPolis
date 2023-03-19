@@ -74,9 +74,6 @@ margin_bottom = 16.0
 mouse_filter = 2
 color = Color( 1, 0.960784, 0, 0.317647 )
 script = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 BLOCK_COLOR = Color( 1, 0, 0, 0.592157 )
 DEFAULT_COLOR = Color( 1, 0.960784, 0, 0.317647 )
 
