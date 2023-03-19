@@ -8,7 +8,7 @@ var init_position
 var focus_position
 export(float) var grow_factor = 1.5
 export(Globals.PLAY_TARGET) var play_target = Globals.PLAY_TARGET.MAP
-export(Globals.PLACE_TARGET) var place_target = Globals.PLACE_TARGET.CHARACTER
+export(Globals.PLACE_TARGET) var place_target = Globals.PLACE_TARGET.NONE
 export(String) var description = ""
 export(Texture) var texture = null
 
@@ -73,6 +73,16 @@ func get_representation():
 			return character_scene.instance()
 		Globals.PLACE_TARGET.HOUSE:
 			return house_scene.instance()
+		Globals.PLACE_TARGET.NONE:
+			# copy the card shape/color
+			var e = get_node("ColorRect")
+			var n = e.duplicate()
+			# for simplicity remove children
+			for child in n.get_children():
+				child.queue_free()
+			n.rect_size = e.rect_size * 0.5
+			n.set_position(n.get_position() - (n.rect_size * 0.5))
+			return n
 	
 	return null
 
@@ -95,6 +105,7 @@ func act(map_position: Vector2):
 		Globals.PLAY_TARGET.MAP:
 			return act_place(map_position)
 		Globals.PLAY_TARGET.NONE:
+			game.clear_selected_card()
 			return load_card_from_jsonld()
 	
 	return null

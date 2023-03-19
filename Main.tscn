@@ -100,13 +100,14 @@ texture_normal = ExtResource( 9 )
 [node name="FoxCard" parent="HUD/DeckTray" instance=ExtResource( 10 )]
 position = Vector2( 99, 373 )
 scale = Vector2( 0.5, 0.5 )
+place_target = 1
 description = "Spawn a new Fox"
 texture = ExtResource( 11 )
 
 [node name="BuildingCard" parent="HUD/DeckTray" instance=ExtResource( 10 )]
 position = Vector2( 171, 373 )
 scale = Vector2( 0.5, 0.5 )
-place_target = 1
+place_target = 2
 description = "Build a new house"
 texture = ExtResource( 12 )
 

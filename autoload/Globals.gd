@@ -9,8 +9,9 @@ enum PLAY_TARGET {
 }
 
 enum PLACE_TARGET {
-	CHARACTER = 0,
-	HOUSE = 1
+	NONE = 0,
+	CHARACTER = 1,
+	HOUSE = 2
 }
 
 const MUD = {
