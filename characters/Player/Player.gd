@@ -69,7 +69,8 @@ func save(world_position=null):
 	var save_data = {
 		"@id": urlid,
 		"@type": get_type(),
-		"http://www.w3.org/2006/vcard/ns#fn": character_name
+		"http://www.w3.org/2006/vcard/ns#fn": character_name,
+		"mud:species": species
 	}
 
 	if world_position != null:
