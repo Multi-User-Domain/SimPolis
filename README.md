@@ -10,7 +10,10 @@ For working with RDF, we use [dotNetRdf](https://dotnetrdf.org). One great featu
 
 In Godot all objects ultimately inherit from `Node`
 
-Nodes which are RDF-ready should have an attribute `urlid` (a string URL identifying the object... it is globally unique. [More information on webid and graph data](https://inqlab.net/2019-11-19-a-primer-on-the-semantic-web-and-linked-data.html)), and should contain functions `load` and `save` for parsing and serializing JSON-LD data to and from the node. Common classes like agents and buildings already provide implementations of this. Not everything has to be JSON-LD, but anything that isn't won't be shared in the federation (it will be local to the game, and other games won't know about it at all)
+Nodes which are RDF-ready should have the following attributes and functions:
+* A string `urlid` (This is a URL that is globally unique. [More information on webid and graph data](https://inqlab.net/2019-11-19-a-primer-on-the-semantic-web-and-linked-data.html))
+* Function `get_type` which should return a URL and indicate the RDF type of the node.
+* Functions `load` and `save` for parsing and serializing JSON-LD data to and from the node. Common classes like agents and buildings already provide implementations of this. Not everything has to be JSON-LD, but anything that isn't won't be shared in the federation (it will be local to the game, and other games won't know about it at all)
 
 # Agents
 
