@@ -7,6 +7,7 @@ onready var animation_player = get_node("AnimationPlayer")
 export var speed: = 400  # How fast the player will move (pixels/sec).
 export var character_name: = ""
 export var urlid := ""
+export var species:String = Globals.SPECIES.HUMAN
 var _target_coords # can be null or Vector2
 var velocity: = Vector2.ZERO
 var screen_size  # Size of the game window.
@@ -83,3 +84,17 @@ func save(world_position=null):
 
 func get_type():
 	return Globals.MUD_CHAR.CHARACTER
+
+# TODO: you can replace get_type with get_rdf_property("@type")
+# TODO: find a more DRY way to do this
+func get_rdf_property(property):
+	match property:
+		"mud:species":
+			return species
+	
+	return null
+
+func set_rdf_property(property, value):
+	match property:
+		"mud:species":
+			species = value

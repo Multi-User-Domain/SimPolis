@@ -16,6 +16,9 @@ var arrow_prompt_scene = preload("res://gui/ArrowPrompt.tscn")
 var character_scene = preload("res://characters/Player/Player.tscn")
 var house_scene = preload("res://buildings/House.tscn")
 
+# NOTE: the below is a temporary variable to store what would be the response from the server
+var inserts_on_complete = []
+
 func _ready():
 	init_scale = get_scale()
 	init_position = get_position()
@@ -45,6 +48,13 @@ func get_place_target_from_jsonld(card_data):
 
 	return null
 
+func extract_inserts_from_action(card_data):
+	if !("mudlogic:patchesOnComplete" in card_data):
+		return
+	
+	# extract the bindings from the card_data
+	inserts_on_complete = card_data["mudlogic:patchesOnComplete"]["mudlogic:inserts"]
+
 func load_card_from_jsonld():
 	# read card from file
 	# TODO: fetch card from server
@@ -63,9 +73,33 @@ func load_card_from_jsonld():
 		if play_target == Globals.PLAY_TARGET.MAP:
 			place_target = get_place_target_from_jsonld(card_data)
 		elif play_target == Globals.PLAY_TARGET.CHARACTER:
-			pass
+			extract_inserts_from_action(card_data)
 
 	init_card()
+
+func resolve_game_object_in_binding(binding, actor, target):
+	match binding["@type"]:
+		# actor can be bound as the agent (character) who played the card
+		Globals.MUD_LOGIC.ACTOR_BINDING:
+			return actor
+		# target is bound as the object(s) on which the card was played
+		# TODO: when multiple objects will need more instruction (SPARQL?)
+		Globals.MUD_LOGIC.TARGET_BINDING:
+			return target
+		# TODO: witnesses will need to be bound by validating them against a shape
+		Globals.MUD_LOGIC.WITNESS_BINDING:
+			pass
+	
+	return null
+
+func action_completed_effect_changes(actor, target):
+	# called when an action is completed
+	for binding in inserts_on_complete:
+		var bound_obj = resolve_game_object_in_binding(binding, actor, target)
+		for key in binding.keys():
+			if key in ["@id", "@type"]:
+				continue
+			bound_obj.set_rdf_property(key, binding[key])
 
 # function for returning a Sprite representation of the object which is going to be placed
 func get_representation():
@@ -108,10 +142,33 @@ func act_place(map_position: Vector2):
 		game.grid.add_child(spawned_item)
 		game.clear_selected_card()
 
+func get_play_target_rdf_type():
+	match play_target:
+		Globals.PLAY_TARGET.CHARACTER:
+			return Globals.MUD_CHAR.CHARACTER
+	return null
+
+func act_on_object(map_position: Vector2):
+	var inhabitant = game.grid.get_node_in_cell(map_position)
+	if inhabitant != null:
+		if inhabitant.has_method("get_type") and (
+			inhabitant.get_type() == get_play_target_rdf_type() or play_target == Globals.PLAY_TARGET.ANY_OBJECT
+		):
+			# TODO: at this point, we should make the action on the server, and then base the consequences on the response
+			#  temporarily to mock the server response, we instead store the consequences on the card itself
+			# TODO: extract actor who played the card
+			action_completed_effect_changes(null, inhabitant)
+			game.clear_selected_card()
+			print(str(inhabitant.get_rdf_property("mud:species")))
+
 func act(map_position: Vector2):
 	match play_target:
 		Globals.PLAY_TARGET.MAP:
 			return act_place(map_position)
+		Globals.PLAY_TARGET.ANY_OBJECT:
+			return act_on_object(map_position)
+		Globals.PLAY_TARGET.CHARACTER:
+			return act_on_object(map_position)
 		Globals.PLAY_TARGET.NONE:
 			game.clear_selected_card()
 			return load_card_from_jsonld()
