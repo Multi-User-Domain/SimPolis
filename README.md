@@ -12,7 +12,8 @@ In Godot all objects ultimately inherit from `Node`
 
 Nodes which are RDF-ready should have the following attributes and functions:
 * A string `urlid` (This is a URL that is globally unique. [More information on webid and graph data](https://inqlab.net/2019-11-19-a-primer-on-the-semantic-web-and-linked-data.html))
-* Function `get_type` which should return a URL and indicate the RDF type of the node.
+* Function `get_rdf_property` which accepts a parameter `property` (the URL for an RDF property, actually for now this will be shorthand - e.g. `mud:species`) and returns the attribute (e.g. a characters' species). Please include `@id` which returns the urlid property, and `@type` which returns the RDF type of the node.
+* Function `set_rdf_property` which accepts parameters `property` and `value` and which sets the property to the value if it can (if the RDF property can be stored on this node).
 * Functions `load` and `save` for parsing and serializing JSON-LD data to and from the node. Common classes like agents and buildings already provide implementations of this. Not everything has to be JSON-LD, but anything that isn't won't be shared in the federation (it will be local to the game, and other games won't know about it at all)
 
 # Agents

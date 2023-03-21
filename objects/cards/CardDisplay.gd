@@ -151,8 +151,9 @@ func get_play_target_rdf_type():
 func act_on_object(map_position: Vector2):
 	var inhabitant = game.grid.get_node_in_cell(map_position)
 	if inhabitant != null:
-		if inhabitant.has_method("get_type") and (
-			inhabitant.get_type() == get_play_target_rdf_type() or play_target == Globals.PLAY_TARGET.ANY_OBJECT
+		if inhabitant.has_method("get_rdf_property") and (
+			inhabitant.get_rdf_property("@type") == get_play_target_rdf_type() or
+			play_target == Globals.PLAY_TARGET.ANY_OBJECT
 		):
 			# TODO: at this point, we should make the action on the server, and then base the consequences on the response
 			#  temporarily to mock the server response, we instead store the consequences on the card itself

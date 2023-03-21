@@ -27,7 +27,7 @@ func save(world_position=null):
 	# serializes the building into JSON-LD for saving
 	var save_data = {
 		"@id": urlid,
-		"@type": get_type(),
+		"@type": get_rdf_property("@type"),
 		"http://www.w3.org/2006/vcard/ns#fn": building_name,
 		"hasSize": {
 			"@type": "https://w3id.org/mdo/structure/CoordinateVector",
@@ -47,5 +47,13 @@ func save(world_position=null):
 
 	return save_data
 
-func get_type():
-	return Globals.MUD_BUILDING.BUILDING
+# TODO: find a more DRY way to do this
+func get_rdf_property(property):
+	match property:
+		"@type":
+			return Globals.MUD_BUILDING.BUILDING
+	
+	return null
+
+func set_rdf_property(property, value):
+	pass
