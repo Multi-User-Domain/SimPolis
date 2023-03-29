@@ -3,6 +3,7 @@ extends Node2D
 onready var game = get_tree().current_scene
 onready var description_label = get_node("ColorRect/MarginContainer/Description")
 onready var sprite = get_node("ColorRect/MarginContainer2/Sprite")
+onready var card_depiction_http_request = get_node("HTTPRequest")
 var init_scale
 var init_position
 var focus_position
@@ -55,6 +56,28 @@ func extract_inserts_from_action(card_data):
 	# extract the bindings from the card_data
 	inserts_on_complete = card_data["mudlogic:patchesOnComplete"]["mudlogic:inserts"]
 
+func _card_depiction_http_request_completed(result, response_code, headers, body):
+	var image = Image.new()
+	# TODO: handle other image file types
+	var image_error = image.load_png_from_buffer(body)
+	if image_error != OK:
+		print("An error occurred while trying to display the image.")
+	
+	var texture = ImageTexture.new()
+	texture.create_from_image(image)
+	
+	# Assign to the child TextureRect node
+	# TODO: sprite is not re-rendered immediately after being set
+	sprite.set_texture(texture)
+	# TODO: scaling should be reactive to image size
+	sprite.scale = Vector2(2, 2)
+
+func load_depiction_from_card_data(card_data):
+	# Perform the HTTP request. The URL below returns a PNG image as of writing.
+	var http_error = card_depiction_http_request.request(card_data["foaf:depiction"])
+	if http_error != OK:
+		print("An error occurred in the HTTP request.")
+
 func load_card_from_jsonld():
 	# read card from file
 	# TODO: fetch card from server
@@ -62,6 +85,9 @@ func load_card_from_jsonld():
 	card_file.open("res://assets/cards/bite.json", File.READ)
 	var card_data = parse_json(card_file.get_line())
 	card_file.close()
+
+	if "foaf:depiction" in card_data:
+		load_depiction_from_card_data(card_data)
 
 	if "mudcard:description" in card_data:
 		description = card_data["mudcard:description"]

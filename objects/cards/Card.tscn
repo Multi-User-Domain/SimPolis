@@ -62,5 +62,8 @@ scale = Vector2( 0.1875, 0.181701 )
 position = Vector2( 64, 88 )
 shape = SubResource( 4 )
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Card_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Card_mouse_exited"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_card_depiction_http_request_completed"]
