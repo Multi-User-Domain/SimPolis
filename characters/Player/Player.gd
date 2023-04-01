@@ -63,6 +63,10 @@ func load(obj):
 
 	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
 		character_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
+	
+	if "mud:species" in obj:
+		species = obj["mud:species"]
+		print("species for " + character_name + "is " + species)
 
 func save(world_position=null):
 	# serializes the character into JSON-LD for saving
