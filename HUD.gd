@@ -25,5 +25,15 @@ func add_card_to_tray(card):
 	card.set_scale(card_scale)
 	card.display_card()
 
+func clear_cards_from_tray():
+	for card in deck_tray.get_children():
+		deck_tray.remove_child(card)
+
+func set_new_hand(hand):
+	clear_cards_from_tray()
+	
+	for card in hand:
+		add_card_to_tray(card)
+
 func _on_TextureButton_pressed():
 	deck_tray.set_visible(show_deck_button.pressed)
