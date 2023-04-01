@@ -12,7 +12,7 @@ func count_cards_in_tray():
 
 func card_deck_map_to_world(target_cell: Vector2):
 	# position from the start of the deck tray by the number of cards along and by their width
-	var x_increase = (target_cell.x * card_width)
+	var x_increase = target_cell.x * card_width
 	# add margin if it's not the first
 	if x_increase > 0:
 		x_increase += (target_cell.x * 10)
@@ -29,7 +29,7 @@ func add_card_to_tray(description, texture=null, play_target=Globals.PLAY_TARGET
 	
 	var card_deck_map_position = Vector2(count_cards_in_tray() - 1, 0)
 	card.set_position(card_deck_map_to_world(card_deck_map_position))
-	card.init_card()
+	card.display_card()
 
 func _on_TextureButton_pressed():
 	deck_tray.set_visible(show_deck_button.pressed)

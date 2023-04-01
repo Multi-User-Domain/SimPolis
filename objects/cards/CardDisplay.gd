@@ -21,9 +21,9 @@ var house_scene = preload("res://buildings/House.tscn")
 var inserts_on_complete = []
 
 func _ready():
-	init_card()
+	pass
 
-func init_card():
+func display_card():
 	# visual effects (used in card select animation)
 	init_scale = get_scale()
 	init_position = get_position()
@@ -80,14 +80,14 @@ func load_depiction_from_card_data(card_data):
 	if http_error != OK:
 		print("An error occurred in the HTTP request.")
 
-func load_card_from_jsonld():
-	# read card from file
-	# TODO: fetch card from server
+func get_card_data_from_file(filename):
 	var card_file = File.new()
-	card_file.open("res://assets/cards/bite.json", File.READ)
+	card_file.open(filename, File.READ)
 	var card_data = parse_json(card_file.get_line())
 	card_file.close()
+	return card_data
 
+func load_card_from_jsonld(card_data):
 	if "foaf:depiction" in card_data:
 		load_depiction_from_card_data(card_data)
 
@@ -102,8 +102,6 @@ func load_card_from_jsonld():
 			place_target = get_place_target_from_jsonld(card_data)
 		elif play_target == Globals.PLAY_TARGET.CHARACTER:
 			extract_inserts_from_action(card_data)
-
-	init_card()
 
 func resolve_game_object_in_binding(binding, actor, target):
 	match binding["@type"]:
@@ -200,7 +198,10 @@ func act(map_position: Vector2):
 			return act_on_object(map_position)
 		Globals.PLAY_TARGET.NONE:
 			game.clear_selected_card()
-			return load_card_from_jsonld()
+			var card_data = get_card_data_from_file("res://assets/cards/bite.json")
+			load_card_from_jsonld(card_data)
+			display_card()
+			return
 	
 	return null
 
