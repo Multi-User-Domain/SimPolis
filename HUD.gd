@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 export var card_scale = Vector2(0.5, 0.5)
+export var hand_size = 5
 onready var deck_tray = get_node("DeckTray")
 onready var show_deck_button = get_node("ShowDeckButton")
 onready var card_width = 128 * card_scale.x
