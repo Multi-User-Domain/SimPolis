@@ -1,7 +1,9 @@
 extends CanvasLayer
 
+export var card_scale = Vector2(0.5, 0.5)
 onready var deck_tray = get_node("DeckTray")
 onready var show_deck_button = get_node("ShowDeckButton")
+onready var card_width = 128 * card_scale.x
 
 var card_scene = preload("res://objects/cards/Card.tscn")
 
@@ -9,21 +11,20 @@ func count_cards_in_tray():
 	return deck_tray.get_child_count()
 
 func card_deck_map_to_world(target_cell: Vector2):
-	# TODO: replace this with position logic that doesn't depend on this existing
-	var first_card = deck_tray.get_child(0)
-	var zero_pos = first_card.position
-	# for each card move the size of the card at its' scale
-	var card_width = first_card.get_node("ColorRect").get_size().x * first_card.init_scale
-	
-	# the +10 is for adding some margin
-	return zero_pos + Vector2(target_cell.x * card_width.x + 20, 0)
+	# position from the start of the deck tray by the number of cards along and by their width
+	var x_increase = (target_cell.x * card_width)
+	# add margin if it's not the first
+	if x_increase > 0:
+		x_increase += (target_cell.x * 10)
+	return Vector2(x_increase, 0)
 
-func add_card_to_tray():
+func add_card_to_tray(description, texture=null, play_target=Globals.PLAY_TARGET.NONE, place_target=Globals.PLACE_TARGET.NONE):
 	var card = card_scene.instance()
-	card.description = "(DEBUG) Download Card"
-	card.play_target = Globals.PLAY_TARGET.NONE
-	card.place_target = Globals.PLACE_TARGET.NONE
-	card.set_scale(Vector2(0.5, 0.5))
+	card.description = description
+	card.texture = texture
+	card.play_target = play_target
+	card.place_target = place_target
+	card.set_scale(card_scale)
 	deck_tray.add_child(card)
 	
 	var card_deck_map_position = Vector2(count_cards_in_tray() - 1, 0)

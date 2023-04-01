@@ -18,7 +18,10 @@ var treasure_scene = preload("res://objects/Treasure.tscn")
 func _ready():
 	camera.init()
 	load_game()
-	hud.add_card_to_tray()
+	
+	hud.add_card_to_tray("Spawn a new Fox", load("res://assets/objects/card/birth.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.CHARACTER)
+	hud.add_card_to_tray("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.HOUSE)
+	hud.add_card_to_tray("(DEBUG) Download Card")
 
 func select_character(character):
 	# deselect previously selected character
