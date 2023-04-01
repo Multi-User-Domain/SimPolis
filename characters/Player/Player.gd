@@ -66,7 +66,6 @@ func load(obj):
 	
 	if "mud:species" in obj:
 		species = obj["mud:species"]
-		print("species for " + character_name + "is " + species)
 
 func save(world_position=null):
 	# serializes the character into JSON-LD for saving

@@ -23,6 +23,13 @@ var inserts_on_complete = []
 func _ready():
 	pass
 
+func init_card(desc, tex=null, play=Globals.PLAY_TARGET.NONE, place=Globals.PLACE_TARGET.NONE):
+	description = desc
+	texture = tex
+	play_target = play
+	place_target = place
+	return self
+
 func display_card():
 	# visual effects (used in card select animation)
 	init_scale = get_scale()
@@ -102,6 +109,10 @@ func load_card_from_jsonld(card_data):
 			place_target = get_place_target_from_jsonld(card_data)
 		elif play_target == Globals.PLAY_TARGET.CHARACTER:
 			extract_inserts_from_action(card_data)
+
+func load_card_from_file(filename):
+	var card_data = get_card_data_from_file(filename)
+	load_card_from_jsonld(card_data)
 
 func resolve_game_object_in_binding(binding, actor, target):
 	match binding["@type"]:
@@ -198,8 +209,7 @@ func act(map_position: Vector2):
 			return act_on_object(map_position)
 		Globals.PLAY_TARGET.NONE:
 			game.clear_selected_card()
-			var card_data = get_card_data_from_file("res://assets/cards/bite.json")
-			load_card_from_jsonld(card_data)
+			load_card_from_file("res://assets/cards/bite.json")
 			display_card()
 			return
 	
