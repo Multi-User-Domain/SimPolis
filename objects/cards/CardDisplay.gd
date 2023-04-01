@@ -21,12 +21,14 @@ var house_scene = preload("res://buildings/House.tscn")
 var inserts_on_complete = []
 
 func _ready():
-	init_scale = get_scale()
-	init_position = get_position()
-	focus_position = init_position + Vector2(0, -100)
 	init_card()
 
 func init_card():
+	# visual effects (used in card select animation)
+	init_scale = get_scale()
+	init_position = get_position()
+	focus_position = init_position + Vector2(0, -100)
+	
 	description_label.set_text(description)
 	if texture != null:
 		sprite.set_texture(texture)

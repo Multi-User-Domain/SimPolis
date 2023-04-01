@@ -3,6 +3,7 @@ extends Node2D
 onready var place_item_prompt = get_node("ItemPlacePrompt")
 onready var grid = get_node("Grid")
 onready var camera = get_node("Camera")
+onready var hud = get_node("HUD")
 var selected_character: Character
 var selected_card: Node2D
 
@@ -17,6 +18,7 @@ var treasure_scene = preload("res://objects/Treasure.tscn")
 func _ready():
 	camera.init()
 	load_game()
+	hud.add_card_to_tray()
 
 func select_character(character):
 	# deselect previously selected character
