@@ -19,22 +19,16 @@ var card_scene = preload("res://objects/cards/Card.tscn")
 func _ready():
 	camera.init()
 	load_game()
-	
-	hud.add_card_to_tray(
-		card_scene.instance().init_card("Spawn a new Fox", load("res://assets/objects/card/birth.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.CHARACTER)
-	)
-	hud.add_card_to_tray(
-		card_scene.instance().init_card("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.HOUSE)
-	)
-	hud.add_card_to_tray(
-		card_scene.instance().init_card("(DEBUG) Download Card")
-	)
+
+func get_card_scene_instance():
+	return card_scene.instance()
 
 func select_character(character):
 	# deselect previously selected character
 	if selected_character != null:
 		selected_character.deselect()
 	selected_character = character
+	selected_character.deck.set_active_deck()
 
 func _physics_process(delta):
 	# updating the tile highlight

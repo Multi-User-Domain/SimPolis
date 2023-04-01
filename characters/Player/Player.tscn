@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/fox/fox.png" type="Texture" id=1]
 [ext_resource path="res://characters/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/font/OpenSans.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://objects/cards/DeckManager.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.0
@@ -199,5 +200,7 @@ anims/RunDown = SubResource( 7 )
 anims/RunLeft = SubResource( 6 )
 anims/RunRight = SubResource( 4 )
 anims/RunUp = SubResource( 5 )
+
+[node name="DeckManager" parent="." instance=ExtResource( 4 )]
 
 [connection signal="input_event" from="." to="." method="_on_KinematicBody2D_input_event"]

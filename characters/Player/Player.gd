@@ -4,6 +4,7 @@ class_name Character
 
 onready var game = get_tree().current_scene
 onready var animation_player = get_node("AnimationPlayer")
+onready var deck = get_node("DeckManager")
 export var speed: = 400  # How fast the player will move (pixels/sec).
 export var character_name: = ""
 export var urlid := ""
@@ -20,6 +21,18 @@ func _ready():
 	$NameLabel.text = character_name
 	# TODO: get a urlid from world server connection
 	urlid = "_Player_" + character_name + str(randi())
+	
+	# TODO: replace with individual cards
+	if character_name == "Pericles":
+		deck.add_card_to_deck(
+			game.get_card_scene_instance().init_card("Spawn a new Fox", load("res://assets/objects/card/birth.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.CHARACTER)
+		)
+		deck.add_card_to_deck(
+			game.get_card_scene_instance().init_card("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.HOUSE)
+		)
+		deck.add_card_to_deck(
+			game.get_card_scene_instance().init_card("(DEBUG) Download Card")
+		)
 
 func _physics_process(delta):
 	if _target_coords:
