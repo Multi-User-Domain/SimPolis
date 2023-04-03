@@ -3,6 +3,7 @@ extends KinematicBody2D
 class_name Character
 
 onready var game = get_tree().current_scene
+onready var sprite = get_node("Sprite")
 onready var animation_player = get_node("AnimationPlayer")
 onready var deck = get_node("DeckManager")
 export var speed: = 400  # How fast the player will move (pixels/sec).
@@ -79,6 +80,8 @@ func load(obj):
 	
 	if "mud:species" in obj:
 		species = obj["mud:species"]
+	
+	sprite.load_sprite_from_jsonld(obj)
 
 func save(world_position=null):
 	# serializes the character into JSON-LD for saving
