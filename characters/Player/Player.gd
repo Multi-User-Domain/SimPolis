@@ -81,7 +81,7 @@ func load(obj):
 	if "mud:species" in obj:
 		species = obj["mud:species"]
 	
-	sprite.load_sprite_from_jsonld(obj)
+	self.sprite.load_sprite_from_jsonld(obj)
 
 func save(world_position=null):
 	# serializes the character into JSON-LD for saving

@@ -149,9 +149,6 @@ func load_game():
 		if instance == null:
 			print("received unkown instance type in save file " + str(obj.get("@type")))
 			continue
-
-		# serializes the properties contained in the obj into the instance (overridden in each class)
-		instance.load(obj)
 		
 		# figure out the size of the object (the number of cells it takes up)
 		var size: Vector2 = Vector2(obj['size'].x, obj['size'].y) if 'size' in obj else Vector2(1,1)
@@ -163,6 +160,9 @@ func load_game():
 		if success:
 			grid.add_child(instance)
 			grid.place_in_cell(instance, map_position, true)
+			
+			# serializes the properties contained in the obj into the instance (overridden in each class)
+			instance.load(obj)
 
 	save_file.close()
 
