@@ -19,21 +19,22 @@ signal destination_arrived # triggered when movement complete
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	
+	# TODO: replace with individual cards
+	deck.add_card_to_deck(
+		game.get_card_scene_instance().init_card("Spawn a new Fox", load("res://assets/objects/card/birth.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.CHARACTER)
+	)
+	deck.add_card_to_deck(
+		game.get_card_scene_instance().init_card("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.HOUSE)
+	)
+	deck.add_card_to_deck(
+		game.get_card_scene_instance().init_card("(DEBUG) Download Card")
+	)
+
+func refresh_character_display():
 	$NameLabel.text = character_name
 	# TODO: get a urlid from world server connection
 	urlid = "_Player_" + character_name + str(randi())
-	
-	# TODO: replace with individual cards
-	if character_name == "Pericles":
-		deck.add_card_to_deck(
-			game.get_card_scene_instance().init_card("Spawn a new Fox", load("res://assets/objects/card/birth.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.CHARACTER)
-		)
-		deck.add_card_to_deck(
-			game.get_card_scene_instance().init_card("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.HOUSE)
-		)
-		deck.add_card_to_deck(
-			game.get_card_scene_instance().init_card("(DEBUG) Download Card")
-		)
 
 func _physics_process(delta):
 	if _target_coords:
@@ -73,15 +74,16 @@ func deselect():
 	$NameLabel.set_visible_characters(0)
 
 func load(obj):
-	urlid = obj["@id"]
+	self.urlid = obj["@id"]
 
 	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
-		character_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
+		self.character_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
 	
 	if "mud:species" in obj:
-		species = obj["mud:species"]
+		self.species = obj["mud:species"]
 	
 	self.sprite.load_sprite_from_jsonld(obj)
+	self.refresh_character_display()
 
 func save(world_position=null):
 	# serializes the character into JSON-LD for saving
