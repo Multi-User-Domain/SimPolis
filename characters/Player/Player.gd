@@ -111,6 +111,13 @@ func get_rdf_property(property):
 			return Globals.MUD_CHAR.CHARACTER
 		"mud:species":
 			return species
+		"vcard:fn":
+			return character_name
+		"n:fn":
+			return character_name
+		# TODO: expanding/compacting - RDF library (C#) for this
+		"http://www.w3.org/2006/vcard/ns#fn":
+			return character_name
 	
 	return null
 
