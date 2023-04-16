@@ -165,16 +165,6 @@ func get_representation():
 	
 	return null
 
-func get_title_from_item(item: Node):
-	if not item.has_method("get_rdf_property"):
-		return item.get_type()
-	var title = item.get_rdf_property("n:fn")
-	if title == null or title == "":
-		title = item.get_rdf_property("@id")
-	if title == null or title == "":
-		return item.get_rdf_property("@type")
-	return title
-
 func act_place(map_position: Vector2):
 	# get the size of the object to place, default to 1x1
 	var item = game.place_item_prompt.get_item()
@@ -191,15 +181,7 @@ func act_place(map_position: Vector2):
 
 		# open a dialogue to set object properties or import it from a urlid
 		if spawned_item.has_method("save"):
-			var item_rdf = spawned_item.save()
-			print(str(item_rdf))
-			var wd = WindowDialog.new()
-			wd.set_title(get_title_from_item(spawned_item))
-			# TODO: bound this by the screen size & overflow with scroll bar
-			wd.set_size(Vector2(300, 300))
-			wd.set_resizable(true)
-			game.hud.add_child(wd)
-			wd.popup_centered()
+			game.hud.display_form_for_placed_node(spawned_item)
 
 func get_play_target_rdf_type():
 	match play_target:

@@ -2,6 +2,7 @@ extends CanvasLayer
 
 export var card_scale = Vector2(0.5, 0.5)
 export var hand_size = 5
+onready var linked_data_object_form = get_node("LinkedDataObjectForm")
 onready var deck_tray = get_node("DeckTray")
 onready var show_deck_button = get_node("ShowDeckButton")
 onready var card_width = 128 * card_scale.x
@@ -38,3 +39,6 @@ func set_new_hand(hand):
 
 func _on_TextureButton_pressed():
 	deck_tray.set_visible(show_deck_button.pressed)
+
+func display_form_for_placed_node(node: Node):
+	linked_data_object_form.configure(node)
