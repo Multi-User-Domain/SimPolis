@@ -6,6 +6,27 @@
 script = ExtResource( 1 )
 
 [node name="WindowDialog" type="WindowDialog" parent="."]
+visible = true
 margin_right = 275.0
-margin_bottom = 144.0
+margin_bottom = 118.0
 resizable = true
+
+[node name="LabelUrlid" type="Label" parent="WindowDialog"]
+margin_left = 23.0
+margin_top = 12.0
+margin_right = 249.0
+margin_bottom = 26.0
+text = "Download from urlid (blank is OK)"
+
+[node name="InputUrlid" type="LineEdit" parent="WindowDialog"]
+margin_left = 19.0
+margin_top = 37.0
+margin_right = 256.0
+margin_bottom = 61.0
+
+[node name="ButtonConfirm" type="Button" parent="WindowDialog"]
+margin_left = 66.0
+margin_top = 78.0
+margin_right = 208.0
+margin_bottom = 98.0
+text = "OK"
