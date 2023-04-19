@@ -3,6 +3,7 @@ extends Node2D
 
 onready var wd = get_node("WindowDialog")
 onready var input_urlid = wd.get_node("InputUrlid")
+onready var obj_http_request = get_node("HTTPRequest")
 
 
 func _ready():
@@ -25,3 +26,12 @@ func configure(node: Node):
 	var urlid = node.get_rdf_property("@id")
 	input_urlid.set_text(urlid if urlid != null else "")
 	wd.popup_centered()
+
+
+func _on_obj_request_completed(result, response_code, headers, body):
+	print("hello world")
+
+
+func _on_ButtonConfirm_pressed():
+	obj_http_request.request(input_urlid.get_text())
+	wd.hide()

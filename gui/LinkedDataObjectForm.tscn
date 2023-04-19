@@ -30,3 +30,8 @@ margin_top = 78.0
 margin_right = 208.0
 margin_bottom = 98.0
 text = "OK"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="WindowDialog/ButtonConfirm" to="." method="_on_ButtonConfirm_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_obj_request_completed"]
