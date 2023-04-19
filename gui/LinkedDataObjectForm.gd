@@ -4,6 +4,7 @@ extends Node2D
 onready var wd = get_node("WindowDialog")
 onready var input_urlid = wd.get_node("InputUrlid")
 onready var obj_http_request = get_node("HTTPRequest")
+var node_ref = null
 
 
 func _ready():
@@ -20,17 +21,17 @@ func get_title_from_item(node: Node):
 	return title
 
 func configure(node: Node):
+	self.node_ref = node
 	var item_rdf = node.save()
-	print(str(item_rdf))
 	wd.set_title(get_title_from_item(node))
 	var urlid = node.get_rdf_property("@id")
 	input_urlid.set_text(urlid if urlid != null else "")
 	wd.popup_centered()
 
-
 func _on_obj_request_completed(result, response_code, headers, body):
-	print("hello world")
-
+	var response = parse_json(body.get_string_from_utf8())
+	for key in response:
+		self.node_ref.set_rdf_property(key, response[key])
 
 func _on_ButtonConfirm_pressed():
 	obj_http_request.request(input_urlid.get_text())

@@ -33,8 +33,13 @@ func _ready():
 
 func refresh_character_display():
 	$NameLabel.text = character_name
-	# TODO: get a urlid from world server connection
-	urlid = "_Player_" + character_name + str(randi())
+	if urlid == null:
+		# TODO: get a urlid from world server connection
+		urlid = "_Player_" + character_name + str(randi())
+
+func set_character_name(name: String):
+	character_name = name
+	refresh_character_display()
 
 func _physics_process(delta):
 	if _target_coords:
@@ -125,3 +130,5 @@ func set_rdf_property(property, value):
 	match property:
 		"mud:species":
 			species = value
+		"n:fn":
+			self.set_character_name(value)
