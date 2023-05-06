@@ -90,7 +90,7 @@ func load_depiction_from_card_data(card_data):
 func get_card_data_from_file(filename):
 	var card_file = File.new()
 	card_file.open(filename, File.READ)
-	var card_data = parse_json(card_file.get_line())
+	var card_data = parse_json(card_file.get_as_text())
 	card_file.close()
 	return card_data
 

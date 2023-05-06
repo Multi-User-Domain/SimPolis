@@ -71,6 +71,9 @@ func _input(event):
 		# we have received a select command (left click)
 		if mouse_hovering_over_card != null and event.button_index == BUTTON_LEFT:
 			selected_card = mouse_hovering_over_card
+			# TODO: fix the card appearing beneath its peer
+			# var card_parent = selected_card.get_node("..")
+			# card_parent.move_child(selected_card, card_parent.get_child_count())
 			
 			# set the item prompt for placement
 			var rep = selected_card.get_representation()
@@ -127,7 +130,7 @@ func load_game():
 	save_file.open("user://savegame.save", File.READ)
 
 	# load the tile map
-	var map_data = parse_json(save_file.get_line())
+	var map_data = parse_json(save_file.get_as_text())
 	grid.load_tile_map_from_array(map_data['hasTileMap'])
 
 	# load the saved objects
