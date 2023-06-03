@@ -13,6 +13,7 @@ export var species:String = Globals.SPECIES.HUMAN
 var _target_coords # can be null or Vector2
 var velocity: = Vector2.ZERO
 var screen_size  # Size of the game window.
+var jsonld_store = {}
 
 signal destination_arrived # triggered when movement complete
 
@@ -87,6 +88,8 @@ func load(obj):
 	if "mud:species" in obj:
 		self.species = obj["mud:species"]
 	
+	self.jsonld_store = obj
+	
 	self.sprite.load_sprite_from_jsonld(obj)
 	self.refresh_character_display()
 
@@ -124,6 +127,9 @@ func get_rdf_property(property):
 		"http://www.w3.org/2006/vcard/ns#fn":
 			return character_name
 	
+	if property in jsonld_store:
+		return jsonld_store[property]
+	
 	return null
 
 func set_rdf_property(property, value):
@@ -132,3 +138,4 @@ func set_rdf_property(property, value):
 			species = value
 		"n:fn":
 			self.set_character_name(value)
+	jsonld_store[property] = value
