@@ -4,6 +4,7 @@ onready var place_item_prompt = get_node("ItemPlacePrompt")
 onready var grid = get_node("Grid")
 onready var camera = get_node("Camera")
 onready var hud = get_node("HUD")
+onready var federation_manager = get_node("FederationManager")
 var selected_character: Character
 var selected_card: Node2D
 
