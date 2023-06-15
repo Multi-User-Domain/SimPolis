@@ -168,13 +168,8 @@ func get_map_save_data():
 	var save_data = {}
 
 	save_data["@context"] = {
-		"hasTileMap": {
-			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#hasTileMap",
-			"@container": "@list"
-		},
-		"hasMapInhabitants": {
-			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#hasMapInhabitants"
-		},
+		"mudworld": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#",
+		"muditems": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/muditems.ttl#",
 		"coordinates": {
 			"@id": "https://w3id.org/mdo/structure/hasCartesianCoordinates"
 		},
@@ -189,31 +184,25 @@ func get_map_save_data():
 		},
 		"z": {
 			"@id": "https://w3id.org/mdo/structure/Z_axisCoordinate"
-		},
-		"hasSize": {
-			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#hasSize"
-		},
-		"isUsed": {
-			"@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/muditems.ttl#isUsed"
 		}
 	}
 
 	# save the tile map data
-	save_data['hasTileMap'] = []
+	save_data['mudworld:hasTileMap'] = []
 	for x in range(grid_width):
 		# init each row and column
-		save_data['hasTileMap'].append([])
-		save_data['hasTileMap'][x].resize(grid_height)
+		save_data['mudworld:hasTileMap'].append([])
+		save_data['mudworld:hasTileMap'][x].resize(grid_height)
 
 		# save the int value used for the map data
 		# TODO: use something RDF-friendly
 		for y in range(grid_height):
-			save_data['hasTileMap'][x][y] = get_cell(x, y)
+			save_data['mudworld:hasTileMap'][x][y] = get_cell(x, y)
 
 	# save the inhabitant data
-	save_data['hasMapInhabitants'] = {}
+	save_data['mudworld:hasMapInhabitants'] = {}
 	for urlid in inhabitants_for_saving.keys():
-		save_data['hasMapInhabitants'][urlid] = get_inhabitant_for_saving_for_saving(urlid)
+		save_data['mudworld:hasMapInhabitants'][urlid] = get_inhabitant_for_saving_for_saving(urlid)
 
 	return save_data
 

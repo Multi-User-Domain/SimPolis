@@ -18,7 +18,7 @@ func _ready():
 
 func load(obj):
 	urlid = obj["@id"]
-	size_cells = Vector2(obj["hasSize"].x, obj["hasSize"].y)
+	size_cells = Vector2(obj["mudworld:hasSize"].x, obj["mudworld:hasSize"].y)
 
 	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
 		building_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
@@ -29,7 +29,7 @@ func save(world_position=null):
 		"@id": urlid,
 		"@type": get_rdf_property("@type"),
 		"http://www.w3.org/2006/vcard/ns#fn": building_name,
-		"hasSize": {
+		"mudworld:hasSize": {
 			"@type": "https://w3id.org/mdo/structure/CoordinateVector",
 			"x": size_cells.x,
 			"y": size_cells.y,

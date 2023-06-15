@@ -24,21 +24,21 @@ func interact(agent: Node):
 
 func load(obj):
 	urlid = obj["@id"]
-	size_cells = Vector2(obj["hasSize"].x, obj["hasSize"].y)
-	is_open = obj["isUsed"]
+	size_cells = Vector2(obj["mudworld:hasSize"].x, obj["mudworld:hasSize"].y)
+	is_open = obj["muditems:isUsed"]
 
 func save(world_position=null):
 	# serializes the building into JSON-LD for saving
 	var save_data = {
 		"@id": urlid,
 		"@type": Globals.MUD_ITEMS.TREASURE_CHEST,
-		"hasSize": {
+		"mudworld:hasSize": {
 			"@type": "https://w3id.org/mdo/structure/CoordinateVector",
 			"x": size_cells.x,
 			"y": size_cells.y,
 			"z": 0
 		},
-		"isUsed": is_open
+		"muditems:isUsed": is_open
 	}
 
 	if world_position != null:
