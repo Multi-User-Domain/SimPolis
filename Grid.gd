@@ -6,6 +6,9 @@ export var grid_height: int
 
 # 2D array of references used to access who is in each tile on the map (null means nobody)
 var inhabitants = []
+# whenever a character enters or exits the scene, their reference is stored for utility
+# e.g. for cycling through them quickly
+var agent_references = []
 # dictionary of inhabitants references used for saving/loading
 # each record is a mapping of urlid -> { coordinates, reference (memory address for access) }
 # see function below set_inhabitant_for_saving

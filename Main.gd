@@ -164,6 +164,8 @@ func load_game():
 		if success:
 			grid.add_child(instance)
 			grid.place_in_cell(instance, map_position, true)
+			if obj.get("@type") == Globals.MUD_CHAR.CHARACTER:
+				grid.agent_references.push(instance)
 			
 			# serializes the properties contained in the obj into the instance (overridden in each class)
 			instance.load(obj)
