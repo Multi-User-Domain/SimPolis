@@ -202,6 +202,13 @@ func get_map_save_data():
 		for y in range(grid_height):
 			save_data['mudworld:hasTileMap'][x][y] = get_cell(x, y)
 
+	save_data["mudworld:hasSize"] = {
+		"@type":"https://w3id.org/mdo/structure/CoordinateVector",
+		"x": grid_width,
+		"y": grid_height,
+		"z":0
+	}
+
 	# save the inhabitant data
 	save_data['mudworld:hasMapInhabitants'] = {}
 	for urlid in inhabitants_for_saving.keys():
