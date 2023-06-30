@@ -85,10 +85,11 @@ func set_inhabitant_for_saving(node, cell: Vector2):
 			"reference": node
 		}
 
-func get_inhabitant_for_saving_for_saving(urlid):
+func get_inhabitant_for_saving(urlid):
 	var inhabitant = inhabitants_for_saving[urlid]
 	if inhabitant != null or not inhabitant.has_method("save"):
 		return {
+			"@id": urlid,
 			"coordinates": {
 				"x": inhabitant["coordinates"]["x"],
 				"y": inhabitant["coordinates"]["y"],
@@ -210,9 +211,9 @@ func get_map_save_data():
 	}
 
 	# save the inhabitant data
-	save_data['mudworld:hasMapInhabitants'] = {}
+	save_data['mudworld:hasMapInhabitants'] = []
 	for urlid in inhabitants_for_saving.keys():
-		save_data['mudworld:hasMapInhabitants'][urlid] = get_inhabitant_for_saving_for_saving(urlid)
+		save_data['mudworld:hasMapInhabitants'].append(get_inhabitant_for_saving(urlid))
 
 	return save_data
 
