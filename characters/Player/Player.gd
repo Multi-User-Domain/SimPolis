@@ -15,6 +15,12 @@ var velocity: = Vector2.ZERO
 var screen_size  # Size of the game window.
 var jsonld_store = {}
 
+# behaviour record
+var seeking_goal = false # lock on request
+var active_goal = null
+var active_task = null
+var task_queue = []
+
 signal destination_arrived # triggered when movement complete
 
 
@@ -139,3 +145,78 @@ func set_rdf_property(property, value):
 		"n:fn":
 			self.set_character_name(value)
 	jsonld_store[property] = value
+
+func seek_new_goal():
+	# TODO: make request to server for new problem
+	if seeking_goal:
+		return
+	
+	seeking_goal = true
+	
+	active_goal = {
+		"@type": Globals.MUD.QUEST,
+		"n:fn": "Satisfy Hunger",
+		"n:hasNote": "The Agent has become hungry, and wishes to satisfy their hunger"
+	}
+	
+	seeking_goal = false
+
+func seek_tasks_for_goal():
+	if not len(task_queue):
+		if is_active_goal_complete():
+			goal_completed()
+			return
+		# TODO: perform goal-oriented action planning
+		task_queue.push({
+			"@type": Globals.MUD.QUEST_OBJECTIVE,
+			"n:fn": "Satisfy Hunger",
+			"n:hasNote": "The Agent has become hungry, and wishes to satisfy their hunger",
+			"mud:objectiveCompletedConformShape": [
+				{
+					"@id": "_:SatisfyHunger1",
+					"@type": Globals.SH_CONFORM.SHAPE_CONFORM_OBJ,
+					"shconform:targetObj": self.urlid,
+					"shconform:targetShape": {
+						
+					}
+				}
+			]
+		})
+	
+	active_task = task_queue.pop_front()
+
+func is_active_task_complete():
+	return false
+
+func is_active_goal_complete():
+	return false
+
+func pursue_active_task():
+	# TODO: read the instructions from the task and carry out the behaviour
+	pass
+
+func goal_completed():
+	# TODO: notify the player?
+	active_goal = null
+	seek_new_goal()
+
+func process_behaviour():
+	if active_goal == null:
+		seek_new_goal()
+		return
+	
+	# assign a new active task if necessary
+	if active_task == null:
+		if not len(task_queue):
+			seek_tasks_for_goal()
+			return
+		
+		active_task = task_queue.pop_front()
+	# check if previous task and goal is complete
+	elif is_active_task_complete():
+		active_task = null
+		seek_tasks_for_goal()
+		return
+	
+	# have task, not complete. Pursue the task
+	pursue_active_task()

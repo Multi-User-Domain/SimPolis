@@ -14,8 +14,14 @@ enum PLACE_TARGET {
 	HOUSE = 2
 }
 
+const SH_CONFORM = {
+	SHAPE_CONFORM_OBJ = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/common/shapeconform.ttl#ShapeConformObj"
+}
+
 const MUD = {
-	BUILDING = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Building"
+	BUILDING = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Building",
+	QUEST = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Quest",
+	QUEST_OBJECTIVE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#QuestObjective"
 }
 
 const MUD_LOGIC = {
@@ -41,7 +47,8 @@ const MUD_ITEMS = {
 }
 
 const SIMPOLIS = {
-	PROBLEM = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/games/simpolis.ttl#Problem"
+	PROBLEM = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/games/simpolis.ttl#Problem",
+	PROBLEM_GENERATION_INSTRUCTION = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/games/simpolis.ttl#ProblemGenerationInstruction",
 }
 
 const SPECIES = {
