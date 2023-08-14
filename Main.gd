@@ -31,6 +31,10 @@ func select_character(character):
 	selected_character = character
 	selected_character.deck.set_active_deck()
 
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		_do_right_click()
+
 func _physics_process(delta):
 	# updating the tile highlight
 	var mouse_cell: Vector2 = grid.world_to_map(get_global_mouse_position())
@@ -68,7 +72,6 @@ func _get_mouse_event_position(pos: Vector2):
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
-		
 		# we have received a select command (left click)
 		if mouse_hovering_over_card != null and event.button_index == BUTTON_LEFT:
 			selected_card = mouse_hovering_over_card
@@ -83,27 +86,34 @@ func _input(event):
 		
 		# we have received an action command (right click)
 		elif event.button_index == BUTTON_RIGHT:
-			var event_position = self._get_mouse_event_position(event.position)
-			
-			# a card is active
-			if selected_card != null:
-				# perform the action and deselect if successful
-				selected_card.act(grid.world_to_map(event_position))
-			
-			# no card active, move the selected character
-			elif selected_character != null:
-				# if the cell is empty then move there
-				var target_cell: Vector2 = grid.world_to_map(event_position)
-				if grid.can_move_to_cell(target_cell):
-					selected_character.set_target_coords(grid.move_to_cell(selected_character, event_position))
-				# there is something in the cell
-				else:
-					# can I interact with it?
-					var target_node = grid.get_node_in_cell(target_cell)
-					if target_node.has_method("interact"):
-						_handle_interaction(target_node, target_cell)
+			_do_right_click(event)
+
+func _do_right_click(event=null):
+	var event_position = null
+	if event == null:
+		event_position = get_viewport().get_mouse_position()  
+	else:
+		event_position = self._get_mouse_event_position(event.position)
+	# a card is active
+	if selected_card != null:
+		# perform the action and deselect if successful
+		selected_card.act(grid.world_to_map(event_position))
+	
+	# no card active, move the selected character
+	elif selected_character != null:
+		# if the cell is empty then move there
+		var target_cell: Vector2 = grid.world_to_map(event_position)
+		if grid.can_move_to_cell(target_cell):
+			selected_character.set_target_coords(grid.move_to_cell(selected_character, event_position))
+		# there is something in the cell
+		else:
+			# can I interact with it?
+			var target_node = grid.get_node_in_cell(target_cell)
+			if target_node.has_method("interact"):
+				_handle_interaction(target_node, target_cell)
 
 func complete_interaction(agent_node, target_node):
+	# agent has arrived at its destination
 	target_node.interact(agent_node)
 	agent_node.disconnect("destination_arrived", self, "complete_interaction")
 
