@@ -5,6 +5,7 @@ onready var sprite = get_node("Sprite")
 export(Vector2) var size_cells = Vector2(2,2)
 export var urlid := ""
 export var building_name := ""
+var jsonld_store = {}
 
 
 func _ready():
@@ -53,7 +54,17 @@ func get_rdf_property(property):
 		"@type":
 			return Globals.MUD_BUILDING.BUILDING
 	
+	if property in self.jsonld_store:
+		return self.jsonld_store[property]
+	
 	return null
 
 func set_rdf_property(property, value):
-	pass
+	self.jsonld_store[property] = value
+
+func interact(agent_node):
+	# follow the instructions configured on the object
+	if "mudlogic:changesTriggeredOnEntry" in self.jsonld_store:
+		game.federation_manager.effect_changes_in_container(
+			self.jsonld_store["mudlogic:changesTriggeredOnEntry"]
+		)
