@@ -171,16 +171,8 @@ func seek_tasks_for_goal():
 			"@type": Globals.MUD.QUEST_OBJECTIVE,
 			"n:fn": "Satisfy Hunger",
 			"n:hasNote": "The Agent has become hungry, and wishes to satisfy their hunger",
-			"mud:objectiveCompletedConformShape": [
-				{
-					"@id": "_:SatisfyHunger1",
-					"@type": Globals.SH_CONFORM.SHAPE_CONFORM_OBJ,
-					"shconform:targetObj": self.urlid,
-					"shconform:targetShape": {
-						
-					}
-				}
-			]
+			# a shape which describes hunger being in the "needs met" of the character
+			"mud:objectiveCompletedConformShape": [  {    "@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/shapes/games/simpolis/needs/hungerSatisfied.ttl#HungerSatisfied",    "@type": [      "http://www.w3.org/ns/shacl#NodeShape"    ],    "http://www.w3.org/ns/shacl#property": [      {        "@id": "_:ub2bL16C17"      }    ],    "http://www.w3.org/ns/shacl#targetClass": [      {        "@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudchar.ttl#Character"      }    ]  },  {    "@id": "_:ub2bL16C17",    "http://www.w3.org/ns/shacl#description": [      {        "@value": "A Character has hunger in their met needs"      }    ],    "http://www.w3.org/ns/shacl#hasValue": [      {        "@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/games/simpolis.ttl#Hunger"      }    ],    "http://www.w3.org/ns/shacl#minCount": [      {        "@value": 1      }    ],    "http://www.w3.org/ns/shacl#name": [      {        "@value": "Hunger met"      }    ],    "http://www.w3.org/ns/shacl#path": [      {        "@id": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/games/simpolis.ttl#hasMetNeeds"      }    ]  }]
 		})
 	
 	active_task = task_queue.pop_front()
