@@ -11,7 +11,7 @@
     },
     "n:fn": "Vampiric Bite",
     "foaf:depiction": "https://github.com/calummackervoy/SimPolis/raw/master/assets/objects/card/bite.png",
-    "mudcard:description": "Played on a character, the character is given a vampiric bite",
+    "n:hasNote": "Played on a character, the character is given a vampiric bite",
     "mud:implementsSpecification": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudcard.ttl#playableCard",
     "mudcard:playTarget": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudchar.ttl#Character",
     "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudlogic.ttl#Action",
