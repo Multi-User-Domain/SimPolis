@@ -61,3 +61,7 @@ const SPECIES = {
 #
 #	Caches
 #
+
+const TEXTURE_CACHE = {
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/asssets/objects/buildings/house_1.png": "res://assets/objects/buildings/house_1.png"
+}

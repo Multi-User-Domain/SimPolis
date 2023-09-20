@@ -8,7 +8,9 @@ export var building_name := ""
 var jsonld_store = {}
 
 
-func _ready():
+func load_new_texture(url):
+	sprite.set_texture(game.rdf_manager.get_texture_from_jsonld(url))
+	
 	# resize the sprite to the correct proportions
 	var sprite_size = sprite.get_texture().get_size()
 	if sprite_size.x > 0 and sprite_size.y > 0:
@@ -23,6 +25,12 @@ func load(obj):
 
 	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
 		building_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
+	
+	if "foaf:depciction" in obj:
+		load_new_texture(obj["foaf:depiction"])
+	else:
+		# TODO: default building texture
+		pass
 
 func save(world_position=null):
 	# serializes the building into JSON-LD for saving
