@@ -21,6 +21,13 @@ func _ready():
 	camera.init()
 	load_game()
 
+func load_jsonld(file_path):
+	var save_file = File.new()
+	save_file.open(file_path, File.READ)
+	var card_data = parse_json(save_file.get_as_text())
+	save_file.close()
+	return card_data
+
 func get_card_scene_instance():
 	return card_scene.instance()
 
