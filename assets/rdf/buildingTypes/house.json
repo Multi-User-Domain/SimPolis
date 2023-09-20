@@ -1,0 +1,13 @@
+{
+    "@context": {
+        "mud": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud#",
+        "mudlogic": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudlogic#",
+        "simpolis": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/games/simpolis.ttl#",
+        "n": "http://www.w3.org/2006/vcard/ns#"
+    },
+    "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/collections/buildings.ttl#House",
+    "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud#Building",
+    "n:fn": "House",
+    "n:hasNote": "An accomodation",
+    "foaf:depiction": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/asssets/objects/buildings/house_1.png"
+}
