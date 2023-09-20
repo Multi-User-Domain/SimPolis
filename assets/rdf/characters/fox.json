@@ -1,0 +1,10 @@
+{
+    "@context": {
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "n": "http://www.w3.org/2006/vcard/ns#",
+        "mud": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud#",
+        "mudchar": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudchar.ttl#"
+    },
+    "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/characters/fox.json",
+    "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudchar.ttl#Character"
+}
