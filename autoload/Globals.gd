@@ -11,7 +11,7 @@ enum PLAY_TARGET {
 enum PLACE_TARGET {
 	NONE = 0,
 	CHARACTER = 1,
-	HOUSE = 2
+	BUILDING = 2
 }
 
 const SH_CONFORM = {
@@ -20,6 +20,7 @@ const SH_CONFORM = {
 
 const MUD = {
 	BUILDING = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Building",
+	BUILDING_TYPE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Building",
 	QUEST = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Quest",
 	QUEST_OBJECTIVE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#QuestObjective"
 }
@@ -35,7 +36,8 @@ const MUD_CHAR = {
 }
 
 const MUD_BUILDING = {
-	HOUSE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudbuildings.ttl#House"
+	HOUSE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudbuildings.ttl#House",
+	KITCHEN = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudbuildings.ttl#Kitchen"
 }
 
 const MUD_WORLD = {
@@ -55,3 +57,7 @@ const SPECIES = {
 	HUMAN = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Human",
 	VAMPIRE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudfantasy.ttl#Vampire"
 }
+
+#
+#	Caches
+#

@@ -32,7 +32,7 @@ func _ready():
 		game.get_card_scene_instance().init_card("Spawn a new Fox", load("res://assets/objects/card/birth.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.CHARACTER)
 	)
 	deck.add_card_to_deck(
-		game.get_card_scene_instance().init_card("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.HOUSE)
+		game.get_card_scene_instance().init_card("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.BUILDING)
 	)
 	deck.add_card_to_deck(
 		game.get_card_scene_instance().init_card("(DEBUG) Download Card")

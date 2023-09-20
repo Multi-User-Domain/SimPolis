@@ -13,7 +13,7 @@ var mouse_hovering_over_card: Node2D = null
 
 # TODO: duplicated logic with CardDisplay. Use @types in each then write a Spawn script
 var character_scene = preload("res://characters/Player/Player.tscn")
-var house_scene = preload("res://buildings/House.tscn")
+var building_scene = preload("res://buildings/Building.tscn")
 var treasure_scene = preload("res://objects/Treasure.tscn")
 var card_scene = preload("res://objects/cards/Card.tscn")
 
@@ -153,8 +153,8 @@ func load_game():
 		# the @type key will dictate to us which scene to instance
 		var instance = null
 		match obj.get("@type"):
-			Globals.MUD_BUILDING.HOUSE:
-				instance = house_scene.instance()
+			Globals.MUD_BUILDING.BUILDING:
+				instance = building_scene.instance()
 			Globals.MUD_CHAR.CHARACTER:
 				instance = character_scene.instance()
 			Globals.MUD_ITEMS.TREASURE_CHEST:

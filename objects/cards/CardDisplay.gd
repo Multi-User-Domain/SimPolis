@@ -13,9 +13,11 @@ export(Globals.PLACE_TARGET) var place_target = Globals.PLACE_TARGET.NONE
 export(String) var description = ""
 export(Texture) var texture = null
 
+var card_data = {}
+
 var arrow_prompt_scene = preload("res://gui/ArrowPrompt.tscn")
 var character_scene = preload("res://characters/Player/Player.tscn")
-var house_scene = preload("res://buildings/House.tscn")
+var building_scene = preload("res://buildings/Building.tscn")
 
 # NOTE: the below is a temporary variable to store what would be the response from the server
 var inserts_on_complete = []
@@ -53,8 +55,8 @@ func get_place_target_from_jsonld(card_data):
 	match card_data["@type"]:
 		Globals.MUD_CHAR.CHARACTER:
 			return Globals.PLACE_TARGET.CHARACTER
-		Globals.MUD_BUILDING.HOUSE:
-			return Globals.PLACE_TARGET.HOUSE
+		Globals.MUD_BUILDING.BUILDING:
+			return Globals.PLACE_TARGET.BUILDING
 
 	return null
 
@@ -95,10 +97,15 @@ func get_card_data_from_file(filename):
 	return card_data
 
 func load_card_from_jsonld(card_data):
+	self.card_data = card_data
+
 	if "foaf:depiction" in card_data:
 		load_depiction_from_card_data(card_data)
 
-	if "mudcard:description" in card_data:
+	if "n:hasNote" in card_data:
+		description = card_data["n:hasNote"]
+	# TODO: depreceated
+	elif "mudcard:description" in card_data:
 		description = card_data["mudcard:description"]
 
 	# read the card behaviour from jsonld data
@@ -143,8 +150,10 @@ func get_representation():
 	match place_target:
 		Globals.PLACE_TARGET.CHARACTER:
 			return character_scene.instance()
-		Globals.PLACE_TARGET.HOUSE:
-			return house_scene.instance()
+		Globals.PLACE_TARGET.BUILDING:
+			var b = building_scene.instance()
+			b.load(self.card_data)
+			return b
 		Globals.PLACE_TARGET.NONE:
 			if play_target == Globals.PLAY_TARGET.NONE:
 				# copy the card shape/color
@@ -213,7 +222,7 @@ func act(map_position: Vector2):
 			return act_on_object(map_position)
 		Globals.PLAY_TARGET.NONE:
 			game.clear_selected_card()
-			load_card_from_file("res://assets/cards/bite.json")
+			load_card_from_file("res://assets/rdf/cards/bite.json")
 			display_card()
 			return
 	
