@@ -20,7 +20,7 @@ const SH_CONFORM = {
 
 const MUD = {
 	BUILDING = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Building",
-	BUILDING_TYPE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Building",
+	BUILDING_TYPE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#BuildingType",
 	QUEST = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Quest",
 	QUEST_OBJECTIVE = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#QuestObjective"
 }

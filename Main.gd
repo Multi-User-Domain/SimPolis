@@ -152,15 +152,15 @@ func load_game():
 	grid.load_tile_map_from_array(map_data['mudworld:hasTileMap'])
 
 	# load the saved objects
-	for urlid in map_data['mudworld:hasMapInhabitants'].keys():
+	for inhabitant in map_data['mudworld:hasMapInhabitants']:
 		# in the save file we saved objects as their map position + their data
-		var obj = map_data['mudworld:hasMapInhabitants'][urlid]["object"]
-		var coordinates = map_data['mudworld:hasMapInhabitants'][urlid]["coordinates"]
+		var obj = inhabitant["object"]
+		var coordinates = inhabitant["coordinates"]
 
 		# the @type key will dictate to us which scene to instance
 		var instance = null
-		match obj.get("@type"):
-			Globals.MUD_BUILDING.BUILDING:
+		match obj["@type"]:
+			Globals.MUD.BUILDING:
 				instance = building_scene.instance()
 			Globals.MUD_CHAR.CHARACTER:
 				instance = character_scene.instance()
