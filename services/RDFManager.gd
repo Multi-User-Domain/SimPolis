@@ -5,15 +5,18 @@ extends Node2D
 #	We should decide fairly quickly if we want to do this in a C# script so we can use an RDF library
 #
 
-func get_texture_from_jsonld(instance, depiction_url):	
+func get_texture_from_jsonld(instance, depiction_url):
+	# first try the cache
 	if depiction_url in Globals.TEXTURE_CACHE.keys():
 		return load(Globals.TEXTURE_CACHE[depiction_url])
 	
-	# read remote texture - if caller supports it
+	# read remote texture
 	if not instance.has_method("get_remote_image"):
+		# caller doesn't support it, so return the default value
+		print("ERR: attempt to call RDFManager.get_texture_from_jsonld, without supporting get_remote_image!")
 		return null
-		# return load(Globals.TEXTURE_CACHE["https://raw.githubusercontent.com/Multi-User-Domain/games-transformed-jam-2023/assets/portrait/ospreyWithers.png"])
 	
+	# NOTE: it must be done by the caller, because the request is asynchronous and we don't want to use a signal
 	instance.get_remote_image(depiction_url)
 	return null
 
