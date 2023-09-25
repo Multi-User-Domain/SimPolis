@@ -26,18 +26,6 @@ signal destination_arrived # triggered when movement complete
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	
-	# TODO: replace with individual cards
-	deck.add_card_to_deck(
-		game.get_card_scene_instance().load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_fox.json"])
-	)
-	deck.add_card_to_deck(
-		game.get_card_scene_instance().load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_house.json"])
-	)
-	# TODO: card discovery
-	#deck.add_card_to_deck(
-	#	game.get_card_scene_instance().init_card("(DEBUG) Download Card")
-	#)
 
 func refresh_character_display():
 	$NameLabel.text = character_name
@@ -86,6 +74,20 @@ func deselect():
 	game.selected_character = null
 	$NameLabel.set_visible_characters(0)
 
+func load_deck():
+	# TODO: actually load the deck from character data
+	deck.add_card_to_deck(
+		deck.load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_fox.json"])
+	)
+	deck.add_card_to_deck(
+		deck.load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_house.json"])
+	)
+
+	# TODO: new card discovery?
+	#deck.add_card_to_deck(
+	#	game.get_card_scene_instance().init_card("(DEBUG) Download Card")
+	#)
+
 func load(obj):
 	self.urlid = obj["@id"]
 
@@ -96,6 +98,7 @@ func load(obj):
 		self.species = obj["mud:species"]
 	
 	self.jsonld_store = obj
+	self.load_deck()
 	
 	self.sprite.load_sprite_from_jsonld(obj)
 	self.refresh_character_display()
