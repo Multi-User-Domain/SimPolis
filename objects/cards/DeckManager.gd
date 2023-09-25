@@ -38,3 +38,10 @@ func set_active_deck():
 	if len(hand) == 0:
 		new_hand()
 	game.hud.set_new_hand(hand)
+
+func load_card_from_file(filename):
+	var card_file = File.new()
+	card_file.open(filename, File.READ)
+	var card_data = parse_json(card_file.get_as_text())
+	card_file.close()
+	return card_data
