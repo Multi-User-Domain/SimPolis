@@ -72,24 +72,18 @@ func _card_depiction_http_request_completed(result, response_code, headers, body
 	# TODO: scaling should be reactive to image size
 	sprite.scale = Vector2(2, 2)
 
-func load_depiction_from_card_data(card_data):
-	# Perform the HTTP request. The URL below returns a PNG image as of writing.
-	var http_error = get_node("HTTPRequest").request(card_data["foaf:depiction"])
+func get_remote_image(urlid):
+	var http_error = get_node("HTTPRequest").request(urlid)
 	if http_error != OK:
 		print("An error occurred in the HTTP request.")
-
-func get_card_data_from_file(filename):
-	var card_file = File.new()
-	card_file.open(filename, File.READ)
-	var card_data = parse_json(card_file.get_as_text())
-	card_file.close()
-	return card_data
 
 func load_card_from_jsonld(card_data):
 	self.card_data = card_data
 
 	if "foaf:depiction" in card_data:
-		load_depiction_from_card_data(card_data)
+		var depiction = game.rdf_manager.get_texture_from_jsonld(self, card_data["foaf:depiction"])
+		if depiction != null:
+			sprite.set_texture(depiction)
 
 	if "n:hasNote" in card_data:
 		description = card_data["n:hasNote"]
@@ -105,10 +99,6 @@ func load_card_from_jsonld(card_data):
 			place_target = get_place_target_from_jsonld(card_data)
 		elif play_target == Globals.PLAY_TARGET.CHARACTER:
 			extract_inserts_from_action(card_data)
-
-func load_card_from_file(filename):
-	var card_data = get_card_data_from_file(filename)
-	load_card_from_jsonld(card_data)
 
 func resolve_game_object_in_binding(binding, actor, target):
 	match binding["@type"]:
@@ -209,11 +199,6 @@ func act(map_position: Vector2):
 			return act_on_object(map_position)
 		Globals.PLAY_TARGET.CHARACTER:
 			return act_on_object(map_position)
-		Globals.PLAY_TARGET.NONE:
-			game.clear_selected_card()
-			load_card_from_file("res://assets/rdf/cards/bite.json")
-			display_card()
-			return
 	
 	return null
 

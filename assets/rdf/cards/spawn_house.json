@@ -12,7 +12,7 @@
     "mud:implementsSpecification": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudcard.ttl#playableCard",
     "n:fn": "Spawn House",
     "n:hasNote": "Spawn a new House",
-    "foaf:depiction": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/buildings/house_1.png",
+    "foaf:depiction": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/objects/house_1.png",
     "mudcard:playTarget": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#Region",
     "mudlogic:postsOnComplete": {
         "@id": "_:endState",

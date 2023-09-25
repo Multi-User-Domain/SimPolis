@@ -5,6 +5,7 @@ onready var grid = get_node("Grid")
 onready var camera = get_node("Camera")
 onready var hud = get_node("HUD")
 onready var federation_manager = get_node("FederationManager")
+onready var rdf_manager = get_node("RDFManager")
 var selected_character: Character
 var selected_card: Node2D
 
@@ -194,11 +195,13 @@ func init_new_game():
 	themistocles.character_name = "Themistocles"
 	grid.add_child(themistocles)
 	grid.place_in_cell(themistocles, Vector2(4,4))
+	themistocles.load_deck()
 
 	var pericles = character_scene.instance()
 	pericles.character_name = "Pericles"
 	grid.add_child(pericles)
 	grid.place_in_cell(pericles, Vector2(8,4))
+	pericles.load_deck()
 
 	var treasure = treasure_scene.instance()
 	grid.add_child(treasure)
