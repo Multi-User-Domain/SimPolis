@@ -3,7 +3,6 @@ extends Node2D
 onready var game = get_tree().current_scene
 onready var description_label = get_node("ColorRect/MarginContainer/Description")
 onready var sprite = get_node("ColorRect/MarginContainer2/Sprite")
-onready var card_depiction_http_request = get_node("HTTPRequest")
 var init_scale
 var init_position
 var focus_position
@@ -21,16 +20,6 @@ var building_scene = preload("res://buildings/Building.tscn")
 
 # NOTE: the below is a temporary variable to store what would be the response from the server
 var inserts_on_complete = []
-
-func _ready():
-	pass
-
-func init_card(desc, tex=null, play=Globals.PLAY_TARGET.NONE, place=Globals.PLACE_TARGET.NONE):
-	description = desc
-	texture = tex
-	play_target = play
-	place_target = place
-	return self
 
 func display_card():
 	# visual effects (used in card select animation)
@@ -85,7 +74,7 @@ func _card_depiction_http_request_completed(result, response_code, headers, body
 
 func load_depiction_from_card_data(card_data):
 	# Perform the HTTP request. The URL below returns a PNG image as of writing.
-	var http_error = card_depiction_http_request.request(card_data["foaf:depiction"])
+	var http_error = get_node("HTTPRequest").request(card_data["foaf:depiction"])
 	if http_error != OK:
 		print("An error occurred in the HTTP request.")
 

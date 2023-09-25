@@ -29,14 +29,15 @@ func _ready():
 	
 	# TODO: replace with individual cards
 	deck.add_card_to_deck(
-		game.get_card_scene_instance().init_card("Spawn a new Fox", load("res://assets/objects/card/birth.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.CHARACTER)
+		game.get_card_scene_instance().load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_fox.json"])
 	)
 	deck.add_card_to_deck(
-		game.get_card_scene_instance().init_card("Build a new house", load("res://assets/objects/buildings/house_1.png"), Globals.PLAY_TARGET.MAP, Globals.PLACE_TARGET.BUILDING)
+		game.get_card_scene_instance().load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_house.json"])
 	)
-	deck.add_card_to_deck(
-		game.get_card_scene_instance().init_card("(DEBUG) Download Card")
-	)
+	# TODO: card discovery
+	#deck.add_card_to_deck(
+	#	game.get_card_scene_instance().init_card("(DEBUG) Download Card")
+	#)
 
 func refresh_character_display():
 	$NameLabel.text = character_name

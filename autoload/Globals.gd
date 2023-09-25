@@ -63,5 +63,11 @@ const SPECIES = {
 #
 
 const TEXTURE_CACHE = {
-	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/asssets/objects/buildings/house_1.png": "res://assets/objects/buildings/house_1.png"
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/asssets/objects/buildings/house_1.png": "res://assets/objects/buildings/house_1.png",
+	"https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/card/birth.png": "res://assets/objects/card/birth.png"
+}
+
+const ACTION_CACHE = {
+	"https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_fox.json": "res://assets/rdf/cards/spawn_fox.json",
+	"https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_house.json": "res://assets/rdf/cards/spawn_house.json"
 }
