@@ -44,7 +44,7 @@ func get_place_target_from_jsonld(card_data):
 	match card_data["@type"]:
 		Globals.MUD_CHAR.CHARACTER:
 			return Globals.PLACE_TARGET.CHARACTER
-		Globals.MUD_BUILDING.BUILDING:
+		Globals.MUD.BUILDING:
 			return Globals.PLACE_TARGET.BUILDING
 
 	return null

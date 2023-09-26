@@ -13,7 +13,7 @@
     "n:fn": "Spawn Fox",
     "n:hasNote": "Spawn a new Fox",
     "foaf:depiction": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/card/birth.png",
-    "mudcard:playTarget": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#Region",
+    "mudcard:playTarget": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#Tile",
     "mudlogic:postsOnComplete": {
         "@id": "_:endState",
         "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudlogic.ttl#Post",
