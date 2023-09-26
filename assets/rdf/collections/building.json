@@ -1,8 +1,8 @@
 [
     {
-        "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/collections/buildings.ttl#House"
+        "@id": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/collections/buildings.ttl#House"
     },
     {
-        "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/collections/buildings.ttl#Kitchen"
+        "@id": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/collections/buildings.ttl#Kitchen"
     }
 ]

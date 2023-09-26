@@ -5,6 +5,6 @@
         "mud": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud#",
         "mudchar": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudchar.ttl#"
     },
-    "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/characters/fox.json",
+    "@id": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/characters/fox.json",
     "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudchar.ttl#Character"
 }

@@ -8,12 +8,6 @@ enum PLAY_TARGET {
 	CHARACTER = 3
 }
 
-enum PLACE_TARGET {
-	NONE = 0,
-	CHARACTER = 1,
-	BUILDING = 2
-}
-
 const SH_CONFORM = {
 	SHAPE_CONFORM_OBJ = "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/common/shapeconform.ttl#ShapeConformObj"
 }
@@ -63,11 +57,27 @@ const SPECIES = {
 #
 
 const TEXTURE_CACHE = {
-	"https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/objects/house_1.png": "res://assets/objects/buildings/house_1.png",
-	"https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/card/birth.png": "res://assets/objects/card/birth.png"
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/objects/house_1.png": "res://assets/objects/buildings/house_1.png",
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/card/birth.png": "res://assets/objects/card/birth.png"
 }
 
 const ACTION_CACHE = {
-	"https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_fox.json": "res://assets/rdf/cards/spawn_fox.json",
-	"https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_house.json": "res://assets/rdf/cards/spawn_house.json"
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_fox.json": "res://assets/rdf/cards/spawn_fox.json",
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_house.json": "res://assets/rdf/cards/spawn_house.json"
 }
+
+const CHARACTER_CACHE = {
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/characters/fox.json": "res://assets/rdf/characters/fox.json"
+}
+
+const BUILDING_CACHE = {
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/buildings/house.json": "res://assets/rdf/buildings/house.json",
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/buildings/kitchen.json": "res://assets/rdf/buildings/kitchen.json",
+}
+
+const CACHES = [
+	TEXTURE_CACHE,
+	ACTION_CACHE,
+	CHARACTER_CACHE,
+	BUILDING_CACHE
+]

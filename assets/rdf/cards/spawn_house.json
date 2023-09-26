@@ -7,12 +7,12 @@
         "simpolis": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/games/simpolis.ttl#",
         "n": "http://www.w3.org/2006/vcard/ns#"
     },
-    "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/spawn_house.json",
+    "@id": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_house.json",
     "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudlogic.ttl#Action",
     "mud:implementsSpecification": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudcard.ttl#playableCard",
     "n:fn": "Spawn House",
     "n:hasNote": "Spawn a new House",
-    "foaf:depiction": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/objects/house_1.png",
+    "foaf:depiction": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/objects/house_1.png",
     "mudcard:playTarget": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudworld.ttl#Tile",
     "mudlogic:postsOnComplete": {
         "@id": "_:endState",
@@ -23,7 +23,7 @@
                 "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudlogic.ttl#TargetBinding",
                 "mudworld:hasMapInhabitants": [
                     {
-                        "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/buildingTypes/house.json"
+                        "@id": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/buildings/house.json"
                     }
                 ]
             }

@@ -10,12 +10,12 @@
         "2Dgraphics": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/2Dgraphics.ttl#"
     },
     "n:fn": "Vampiric Bite",
-    "foaf:depiction": "https://github.com/calummackervoy/SimPolis/raw/master/assets/objects/card/bite.png",
+    "foaf:depiction": "https://github.com/Multi-User-Domain/SimPolis/raw/master/assets/objects/card/bite.png",
     "n:hasNote": "Played on a character, the character is given a vampiric bite",
     "mud:implementsSpecification": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudcard.ttl#playableCard",
     "mudcard:playTarget": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudchar.ttl#Character",
     "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudlogic.ttl#Action",
-    "@id": "https://raw.githubusercontent.com/calummackervoy/SimPolis/master/assets/rdf/cards/bite.json",
+    "@id": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/bite.json",
     "mudlogic:patchesOnComplete": {
         "@id": "_:endState",
         "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mudlogic.ttl#Patch",
