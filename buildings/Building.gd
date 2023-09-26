@@ -7,9 +7,8 @@ export var urlid := ""
 export var building_name := ""
 var jsonld_store = {}
 
-
 func load_new_texture(url):
-	sprite.set_texture(game.rdf_manager.get_texture_from_jsonld(url))
+	sprite.set_texture(game.rdf_manager.get_texture_from_jsonld(self, url))
 	
 	# resize the sprite to the correct proportions
 	var sprite_size = sprite.get_texture().get_size()
@@ -26,7 +25,7 @@ func load(obj):
 	if "http://www.w3.org/2006/vcard/ns#fn" in obj:
 		building_name = obj["http://www.w3.org/2006/vcard/ns#fn"]
 	
-	if "foaf:depciction" in obj:
+	if "foaf:depiction" in obj:
 		load_new_texture(obj["foaf:depiction"])
 	else:
 		# TODO: default building texture
@@ -60,7 +59,7 @@ func save(world_position=null):
 func get_rdf_property(property):
 	match property:
 		"@type":
-			return Globals.MUD_BUILDING.BUILDING
+			return Globals.MUD.BUILDING
 	
 	if property in self.jsonld_store:
 		return self.jsonld_store[property]

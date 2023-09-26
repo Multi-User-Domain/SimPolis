@@ -88,9 +88,7 @@ func _input(event):
 			# card_parent.move_child(selected_card, card_parent.get_child_count())
 			
 			# set the item prompt for placement
-			var rep = selected_card.get_representation()
-			if rep != null:
-				place_item_prompt.set_new_item(rep)
+			place_item_prompt.set_new_item(selected_card.load_representation())
 		
 		# we have received an action command (right click)
 		elif event.button_index == BUTTON_RIGHT:

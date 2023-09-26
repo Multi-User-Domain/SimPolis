@@ -8,7 +8,6 @@ var init_position
 var focus_position
 export(float) var grow_factor = 1.5
 export(Globals.PLAY_TARGET) var play_target = Globals.PLAY_TARGET.MAP
-export(Globals.PLACE_TARGET) var place_target = Globals.PLACE_TARGET.NONE
 export(String) var description = ""
 export(Texture) var texture = null
 
@@ -40,21 +39,12 @@ func get_play_target_from_jsonld(card_data):
 		
 	return Globals.PLAY_TARGET.NONE
 
-func get_place_target_from_jsonld(card_data):
-	match card_data["@type"]:
-		Globals.MUD_CHAR.CHARACTER:
-			return Globals.PLACE_TARGET.CHARACTER
-		Globals.MUD.BUILDING:
-			return Globals.PLACE_TARGET.BUILDING
-
-	return null
-
 func extract_inserts_from_action(card_data):
-	if !("mudlogic:patchesOnComplete" in card_data):
-		return
-	
-	# extract the bindings from the card_data
-	inserts_on_complete = card_data["mudlogic:patchesOnComplete"]["mudlogic:inserts"]
+	inserts_on_complete = []
+	if "mudlogic:postsOnComplete" in card_data:
+		inserts_on_complete += card_data["mudlogic:postsOnComplete"]["mudlogic:inserts"]
+	if "mudlogic:patchesOnComplete" in card_data:
+		inserts_on_complete += card_data["mudlogic:patchesOnComplete"]["mudlogic:inserts"]
 
 func _card_depiction_http_request_completed(result, response_code, headers, body):
 	var image = Image.new()
@@ -93,12 +83,7 @@ func load_card_from_jsonld(card_data):
 
 	# read the card behaviour from jsonld data
 	if "mudcard:playTarget" in card_data:
-		play_target = get_play_target_from_jsonld(card_data)
-		
-		if play_target == Globals.PLAY_TARGET.MAP:
-			place_target = get_place_target_from_jsonld(card_data)
-		elif play_target == Globals.PLAY_TARGET.CHARACTER:
-			extract_inserts_from_action(card_data)
+		extract_inserts_from_action(card_data)
 
 func resolve_game_object_in_binding(binding, actor, target):
 	match binding["@type"]:
@@ -124,34 +109,53 @@ func action_completed_effect_changes(actor, target):
 				continue
 			bound_obj.set_rdf_property(key, binding[key])
 
-# function for returning a Sprite representation of the object which is going to be placed
-func get_representation():
-	match place_target:
-		Globals.PLACE_TARGET.CHARACTER:
-			return character_scene.instance()
-		Globals.PLACE_TARGET.BUILDING:
-			var b = building_scene.instance()
-			b.load(self.card_data)
-			return b
-		Globals.PLACE_TARGET.NONE:
-			if play_target == Globals.PLAY_TARGET.NONE:
-				# copy the card shape/color
-				var e = get_node("ColorRect")
-				var n = e.duplicate()
-				# for simplicity remove children
-				for child in n.get_children():
-					child.queue_free()
-				n.rect_size = e.rect_size * 0.5
-				n.set_position(n.get_position() - (n.rect_size * 0.5))
-				return n
-			else:
-				var arrow = arrow_prompt_scene.instance()
-				arrow.scale = Vector2(0.2, 0.2)
-				var half_cell = game.grid.half_cell_size
-				arrow.position += Vector2(half_cell.x, -(half_cell.y * 1.25))
-				return arrow
-	
+func get_first_item_to_be_placed_on_tile():
+	for insert in inserts_on_complete:
+		if "mudworld:hasMapInhabitants" in insert and len(insert["mudworld:hasMapInhabitants"]) > 0:
+			return insert["mudworld:hasMapInhabitants"][0]
 	return null
+
+# function for loading a Sprite representation of the prompt for making the card action
+# in practice, a small sprite of what will be placed, an arrow indicating the action made, the card itself to be played
+func load_representation():
+	# the card isn't played on anything - so just show the card itself ready to be played
+	if self.play_target == Globals.PLAY_TARGET.NONE:
+		# copy the card shape/color
+		var e = get_node("ColorRect")
+		var n = e.duplicate()
+		# for simplicity remove children
+		for child in n.get_children():
+			child.queue_free()
+		n.rect_size = e.rect_size * 0.5
+		n.set_position(n.get_position() - (n.rect_size * 0.5))
+		return n
+	
+	# the card is going to be played on the map
+	if self.play_target == Globals.PLAY_TARGET.MAP and len(self.inserts_on_complete) > 0:
+		# render a small version of what will be placed on the map
+		var item_data = game.rdf_manager.obj_through_urlid(self.get_first_item_to_be_placed_on_tile())
+		if item_data != null:
+			if item_data["@type"] == Globals.MUD_CHAR.CHARACTER:
+				return character_scene.instance()
+			if item_data["@type"] == Globals.MUD.BUILDING:
+				var b = building_scene.instance()
+				game.add_child(b)
+				b.load(item_data)
+				game.remove_child(b)
+				return b
+			if "foaf:depiction" in item_data:
+				# TODO: better default (loading) instance other than arrow...
+				var arrow = arrow_prompt_scene.instance()
+				game.rdf_manager.get_texture_from_jsonld(arrow, item_data["foaf:depiction"])
+				return arrow
+		# at this stage default to the arrow prompt (TODO: alternative default, so that they're clearly distinguised)
+	
+	# the card is going to be played on something, return an arrow to indicate this
+	var arrow = arrow_prompt_scene.instance()
+	arrow.scale = Vector2(0.2, 0.2)
+	var half_cell = game.grid.half_cell_size
+	arrow.position += Vector2(half_cell.x, -(half_cell.y * 1.25))
+	return arrow
 
 func act_place(map_position: Vector2):
 	# get the size of the object to place, default to 1x1
@@ -189,7 +193,6 @@ func act_on_object(map_position: Vector2):
 			# TODO: extract actor who played the card
 			action_completed_effect_changes(null, inhabitant)
 			game.clear_selected_card()
-			print(str(inhabitant.get_rdf_property("mud:species")))
 
 func act(map_position: Vector2):
 	match play_target:
