@@ -12,7 +12,7 @@ func get_texture_from_jsonld(instance, depiction_url):
 	
 	# read remote texture
 	if not instance.has_method("get_remote_image"):
-		# caller doesn't support it, so return the default value
+		# TODO: have a default way to handle this - read it ourselves, and then just set the texture without transforming it
 		print("ERR: attempt to call RDFManager.get_texture_from_jsonld, without supporting get_remote_image!")
 		return null
 	
@@ -38,5 +38,7 @@ func obj_through_urlid(obj):
 	:return: an expanded version of the object (if it's just a urlid')
 	"""
 	if len(obj.keys()) == 1 and "@id" in obj:
-		obj = load_from_jsonld(obj["@id"])
+		var tmp = load_from_jsonld(obj["@id"])
+		if(tmp != null):
+			obj = tmp
 	return obj
