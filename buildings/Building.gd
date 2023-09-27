@@ -8,6 +8,7 @@ export var building_name := ""
 var jsonld_store = {}
 
 func load_new_texture(url):
+	print("RDFManager loaded texture: " + str(game.rdf_manager.get_texture_from_jsonld(self, url)) + " from url " + str(url))
 	sprite.set_texture(game.rdf_manager.get_texture_from_jsonld(self, url))
 	
 	# resize the sprite to the correct proportions

@@ -82,6 +82,9 @@ func load_deck():
 	deck.add_card_to_deck(
 		deck.load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_house.json"])
 	)
+	deck.add_card_to_deck(
+		deck.load_card_from_file(Globals.ACTION_CACHE["https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_kitchen.json"])
+	)
 
 	# TODO: new card discovery?
 	#deck.add_card_to_deck(

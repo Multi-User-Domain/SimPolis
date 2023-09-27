@@ -63,7 +63,8 @@ const TEXTURE_CACHE = {
 
 const ACTION_CACHE = {
 	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_fox.json": "res://assets/rdf/cards/spawn_fox.json",
-	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_house.json": "res://assets/rdf/cards/spawn_house.json"
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_house.json": "res://assets/rdf/cards/spawn_house.json",
+	"https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/rdf/cards/spawn_kitchen.json": "res://assets/rdf/cards/spawn_kitchen.json",
 }
 
 const CHARACTER_CACHE = {

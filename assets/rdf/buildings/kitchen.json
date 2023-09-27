@@ -9,13 +9,13 @@
     "@type": "https://raw.githubusercontent.com/Multi-User-Domain/vocab/main/mud.ttl#Building",
     "mudworld:hasSize": {
         "@type": "https://w3id.org/mdo/structure/CoordinateVector",
-        "x": 2,
+        "x": 1,
         "y": 1,
         "z": 0
     },
     "n:fn": "Kitchen",
     "n:hasNote": "A building for cooking",
-    "foaf:depiction": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/asssets/objects/house_1.png",
+    "foaf:depiction": "https://raw.githubusercontent.com/Multi-User-Domain/SimPolis/master/assets/objects/house_1.png",
     "mudlogic:changesTriggeredOnEntry": [
         {
             "@id": "_:GetFed",
